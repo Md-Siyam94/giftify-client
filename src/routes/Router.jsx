@@ -10,12 +10,14 @@ import Home from "../pages/(home)/Home";
     {
       path: "/",
       element: <MainLayout></MainLayout>,
-    //   Todo: make error component
+    //   Todo: make error
     //   errorElement: <div>Error</div>,
     children: [
         {
             path: '/',
-            element: <Home></Home>
+            element: <Home></Home>,
+            // errorElement: <div>error</div>
+            
         }
     ]
     },
