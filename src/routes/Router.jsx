@@ -4,7 +4,8 @@ import {
 
   } from "react-router-dom";
 import MainLayout from "../layouts/withCommonLayout/MainLayout";
-import Home from "../pages/(home)/Home";
+import Home from "../layouts/withCommonLayout/pages/(home)/Home";
+
 
   const router = createBrowserRouter([
     {
@@ -15,7 +16,7 @@ import Home from "../pages/(home)/Home";
     children: [
         {
             path: '/',
-            element: <Home></Home>,
+            element: <Home></Home>
             // errorElement: <div>error</div>
             
         }
