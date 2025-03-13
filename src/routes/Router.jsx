@@ -5,6 +5,7 @@ import {
 import MainLayout from "../layouts/withCommonLayout/MainLayout";
 import Home from "../layouts/withCommonLayout/pages/(home)/Home";
 import SignIn from "../layouts/withCommonLayout/pages/(signIn)/SignIn";
+import SignUp from "../layouts/withCommonLayout/pages/(signUp)/SignUp";
 
 
 const router = createBrowserRouter([
@@ -21,9 +22,14 @@ const router = createBrowserRouter([
 
       },
       {
+        path: 'signUp',
+        element: <SignUp></SignUp>
+      },
+      {
         path: 'signIn',
         element: <SignIn></SignIn>
-      }
+      },
+
     ]
   },
 ]);
