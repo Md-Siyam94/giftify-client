@@ -5,7 +5,6 @@ import AuthContext from "./AuthContext";
 
 
 
-
 const AuthProvider = ({ children }) => {
 
     const googleProvider = new GoogleAuthProvider();
