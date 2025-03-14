@@ -2,11 +2,13 @@ import { useContext } from "react";
 import { FaGoogle } from "react-icons/fa";
 import Swal from "sweetalert2";
 import AuthContext from "../context/AuthContext/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 
 
 const SocialLogin = () => {
     const { signInWithGoogle } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const handleGoogleSignIn = () => {
         signInWithGoogle()
@@ -19,6 +21,7 @@ const SocialLogin = () => {
                     showConfirmButton: false,
                     timer: 1000
                 });
+                navigate('/');
 
             })
             .catch(error => {
