@@ -8,28 +8,28 @@ const TrendingGifts = () => {
             title: "Birthday Animation Pack",
             description: "Customizable animated birthday wishes",
             price: "$9.99",
-            image: "/public/Birthday animated pack1.jpg",
+            image: "/Birthday animated pack1.jpg",
         },
         {
             id: 2,
             title: "Amazon E-Gift Card",
             description: "Instant delivery, multiple designs",
             price: "$25-500",
-            image: "/public/amazon-e-gift.jpg",
+            image: "/amazon-e-gift.jpg",
         },
         {
             id: 3,
             title: "Love Message Bundle",
             description: "Romantic animations and cards",
             price: "$12.99",
-            image: "/public/love message bundle.jpg",
+            image: "/love message bundle.jpg",
         },
         {
             id: 4,
             title: "Thank You Pack",
             description: "Express gratitude beautifully",
             price: "$7.99",
-            image: "/public/thank-you-4975917_1280.jpg",
+            image: "/thank-you-4975917_1280.jpg",
         },
     ];
 

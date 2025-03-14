@@ -19,7 +19,7 @@ const SignIn = () => {
 
         signInUser(data.email, data.password)
             .then(result => {
-                console.log('Signin successful: ', result.user.email);
+                // console.log('Signin successful: ', result.user.email);
 
                 Swal.fire({
                     position: "center",
@@ -45,8 +45,8 @@ const SignIn = () => {
 
 
 
-        console.log(data.email);
-        console.log(data.password);
+        // console.log(data.email);
+        // console.log(data.password);
 
 
     };
