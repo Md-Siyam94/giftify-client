@@ -1,7 +1,6 @@
 
 import Hero from './Hero';
 import PropularCetegory from './PropularCetegory';
-import React from 'react';
 import TrendingGifts from './TrendingGifts';
 import WhyChooseUs from './WhyChooseUs';
 import Footer from '../../../../components/Footer';
@@ -25,8 +24,7 @@ const Home = () => {
 
 
 
-        
-          
+    
     );
 };
 
