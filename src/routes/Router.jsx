@@ -8,6 +8,7 @@ import SignIn from "../layouts/withCommonLayout/pages/(signIn)/SignIn";
 import SignUp from "../layouts/withCommonLayout/pages/(signUp)/SignUp";
 
 
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Home></Home>,
+        element: <Home></Home>
         // errorElement: <div>error</div>
 
       },
@@ -34,4 +35,6 @@ const router = createBrowserRouter([
   },
 ]);
 
-export default router
+
+
+export default router;
