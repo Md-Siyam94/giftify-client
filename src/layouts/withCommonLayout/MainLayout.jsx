@@ -5,7 +5,7 @@ import Navbar from '../../components/Navbar';
 const MainLayout = () => {
     return (
         <div>
-            <header>
+            <header className='max-w-screen-2xl '>
                 <Navbar/>
             </header>
             <main>
