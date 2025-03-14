@@ -3,6 +3,7 @@ import AuthContext from '../context/AuthContext/AuthContext';
 import { NavLink, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { IoMdHome } from 'react-icons/io';
+import logo from '../../src/assets/logo.png'
 
 const Navbar = () => {
 
@@ -107,7 +108,12 @@ const Navbar = () => {
           </div>
 
           <NavLink to='/'>
-            <h3 className="text-xl text-p font-bold">Giftify</h3>
+            <div className="flex justify-center items-center gap-1">
+              <div className="">
+                <img src={logo} alt="" className='w-7' />
+              </div>
+              <h3 className="text-xl text-p font-bold">Giftify</h3>
+            </div>
           </NavLink>
 
           {/* <a href='/' className="text-xl text-p font-bold">Giftify</a> */}

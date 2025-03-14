@@ -17,7 +17,7 @@ const SignUp = () => {
 
         createUser(data.email, data.password)
             .then(result => {
-                console.log(result.user);
+                // console.log(result.user);
                 updateUserProfile({ displayName: data.name })
                     .then(() => {
                         Swal.fire({
@@ -38,9 +38,9 @@ const SignUp = () => {
 
 
 
-        console.log(data.email);
-        console.log(data.name);
-        console.log(data.password);
+        // console.log(data.email);
+        // console.log(data.name);
+        // console.log(data.password);
 
 
     };
