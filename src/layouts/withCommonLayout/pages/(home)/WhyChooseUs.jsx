@@ -1,0 +1,47 @@
+import React from 'react';
+
+
+const WhyChooseUs = () => {
+
+    const features = [
+        {
+            id: 1,
+            icon: "/public/package.png",
+            title: "Instant Delivery",
+            description: "Send gifts instantly or schedule for later",
+        },
+        {
+            id: 2,
+            icon: "/public/secure-payment.png",
+            title: "Secure Payments",
+            description: "100% secure payment processing",
+        },
+        {
+            id: 3,
+            icon: "/public/like.png",
+            title: "Customer Love",
+            description: "Rated 4.9/5 by our customers",
+        },
+    ];
+
+    return (
+        <>
+            <div className="py-10 px-5 container mx-auto">
+                <h2 className="text-2xl font-bold text-center mb-6">Why Choose Us</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 text-center">
+                    {features.map((feature) => (
+                        <div key={feature.id} className="flex flex-col items-center">
+                            <div className="bg-purple-100 p-4 rounded-full">
+                                <img className='h-10 w-10' src={feature.icon} alt="" />
+                            </div>
+                            <h3 className="text-lg font-semibold mt-4">{feature.title}</h3>
+                            <p className="text-gray-600 text-sm">{feature.description}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </>
+    );
+};
+
+export default WhyChooseUs;
