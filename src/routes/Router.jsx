@@ -4,6 +4,8 @@ import {
 } from "react-router-dom";
 import MainLayout from "../layouts/withCommonLayout/MainLayout";
 import Home from '../layouts/withCommonLayout/pages/(home)/PropularCetegory'
+import SignUp from '../layouts/withCommonLayout/pages/(signUp)/SignUp'
+import SignIn from '../layouts/withCommonLayout/pages/(signIn)/SignIn'
 
 const router = createBrowserRouter([
   {
