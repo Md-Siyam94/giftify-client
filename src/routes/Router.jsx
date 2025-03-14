@@ -15,23 +15,23 @@ const router = createBrowserRouter([
     //   Todo: make error
     //   errorElement: <div>Error</div>,
     children: [
-        {
-            path: '/',
-            element: <Home></Home>,
-            // errorElement: <div>error</div>
-            
-        },
-        {
-          path: 'signUp',
-          element: <SignUp></SignUp>
-        },
-        {
-          path: 'signIn',
-          element: <SignIn></SignIn>
-        },
-  
+      {
+        path: '/',
+        element: <Home></Home>,
+        // errorElement: <div>error</div>
+
+      },
+      {
+        path: 'signUp',
+        element: <SignUp></SignUp>,
+      },
+      {
+        path: 'signIn',
+        element: <SignIn></SignIn>,
+      },
+
     ]
   },
 ]);
 
-  export default router
+export default router;
