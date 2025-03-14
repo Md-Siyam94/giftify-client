@@ -1,9 +1,16 @@
-import React from 'react';
+
+import Hero from './Hero';
+import PropularCetegory from './PropularCetegory';
 
 const Home = () => {
     return (
         <div>
-            Home page is coming
+            <section>
+                <Hero></Hero>
+            </section>
+            <section className='max-w-6xl mx-auto'>
+                <PropularCetegory></PropularCetegory>
+            </section>
         </div>
     );
 };
