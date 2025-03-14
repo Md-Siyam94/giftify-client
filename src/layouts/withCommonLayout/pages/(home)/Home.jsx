@@ -4,7 +4,6 @@ import PropularCetegory from '../(home)/PropularCetegory';
 import TrendingGifts from '../(home)/TrendingGifts';
 import WhyChooseUs from '../(home)/WhyChooseUs';
 import Footer from '../../../../components/Footer';
-
 const Home = () => {
     return (
         <div>
