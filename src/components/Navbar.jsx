@@ -56,9 +56,15 @@ const Navbar = () => {
       </div>
     </NavLink></li>
 
-    <li><NavLink to="">
+    <li><NavLink to="/gift-catalog">
       <div className="flex justify-center items-center gap-1">
-        <h5>E-gift cards</h5>
+        <h5>Gift Catalog</h5>
+      </div>
+    </NavLink></li>
+
+    <li><NavLink to="/make-gift">
+      <div className="flex justify-center items-center gap-1">
+        <h5>Make Gift</h5>
       </div>
     </NavLink></li>
 
