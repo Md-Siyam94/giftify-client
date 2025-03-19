@@ -14,7 +14,6 @@ const SignUp = () => {
     const onSubmit = async (data) => {
 
 
-
         createUser(data.email, data.password)
             .then(result => {
                 // console.log(result.user);
