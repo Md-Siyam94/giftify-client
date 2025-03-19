@@ -18,6 +18,7 @@ const Home = () => {
           <TrendingGifts></TrendingGifts>
           </section>
           {/* Why choose Us section */}
+           
           <section>
           <WhyChooseUs></WhyChooseUs>
           </section>
