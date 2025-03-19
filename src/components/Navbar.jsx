@@ -79,8 +79,14 @@ const Navbar = () => {
   const dropdownLinks = (
     <>
       <li>
-        <NavLink>{userName}</NavLink>
+        <NavLink to="/dashboard">
+          <h5>Dashboard</h5>
+        </NavLink>
       </li>
+
+      {/* <li>
+        <NavLink>{userName}</NavLink>
+      </li> */}
 
       <li><a onClick={handleLogOut}>Logout</a></li>
     </>
