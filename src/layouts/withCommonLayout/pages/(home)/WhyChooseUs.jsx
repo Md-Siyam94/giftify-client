@@ -6,19 +6,19 @@ const WhyChooseUs = () => {
     const features = [
         {
             id: 1,
-            icon: "/public/package.png",
+            icon: "/package.png",
             title: "Instant Delivery",
             description: "Send gifts instantly or schedule for later",
         },
         {
             id: 2,
-            icon: "/public/secure-payment.png",
+            icon: "/secure-payment.png",
             title: "Secure Payments",
             description: "100% secure payment processing",
         },
         {
             id: 3,
-            icon: "/public/like.png",
+            icon: "/like.png",
             title: "Customer Love",
             description: "Rated 4.9/5 by our customers",
         },
