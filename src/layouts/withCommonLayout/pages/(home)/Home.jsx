@@ -3,7 +3,7 @@ import Hero from '../(home)/Hero';
 import PropularCetegory from '../(home)/PropularCetegory';
 import TrendingGifts from '../(home)/TrendingGifts';
 import WhyChooseUs from '../(home)/WhyChooseUs';
-import Footer from '../../../../components/Footer';
+import Testimonials from './Testimonials';
 const Home = () => {
     return (
         <div>
@@ -17,22 +17,13 @@ const Home = () => {
           <section>
           <TrendingGifts></TrendingGifts>
           </section>
-          {/* Why choose Us section */}
-           
+          {/* Testimonails Section */}
+          <Testimonials></Testimonials>
+              {/* Why choose Us section */}
           <section>
           <WhyChooseUs></WhyChooseUs>
           </section>
-          {/* Footer section */}
-          <section>
-          <Footer></Footer>
-          </section>
         </div>
-
-
-
-
-        
-          
     );
 };
 

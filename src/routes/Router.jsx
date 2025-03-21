@@ -9,7 +9,11 @@ import SignIn from '../layouts/withCommonLayout/pages/(signIn)/SignIn'
 import DashboardLayout from "../layouts/dashboardLayout/DashboardLayout";
 import MakeGift from "../layouts/withCommonLayout/pages/makeGift/MakeGift";
 import GiftCatalog from "../layouts/withCommonLayout/pages/gift catalog/GiftCatalog";
-import Profile from "../layouts/dashboardLayout/Pages/shared/Profile";
+import UserDashboard from "../layouts/dashboardLayout/Pages/User/UserDashboard/UserDashboard";
+import MyGifts from "../layouts/dashboardLayout/Pages/User/MyGifts/MyGifts";
+import WishList from "../layouts/dashboardLayout/Pages/User/WishList/WishList";
+import Profile from "../layouts/shared/Profile";
+
 
 
 const router = createBrowserRouter([
@@ -45,19 +49,26 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <DashboardLayout></DashboardLayout>,
-    // ToDo: seterror
-    // errorElement: <>error</>,
-    children: [
+    children:[
       {
-        path: "/dashboard/profile",
+        path: "",
+        element: <UserDashboard></UserDashboard>
+      },{
+        path: "myGifts",
+        element: <MyGifts></MyGifts>
+      },{
+        path: "wishlist",
+        element: <WishList></WishList>
+      },{
+        path: "profile",
         element: <Profile></Profile>
-      },
-
-
-      
+      }
     ]
-
-  }
+  },
+//   {
+//     path:'*',
+//     // element:<ErrorPage></ErrorPage>
+// }
 
 ]);
 
