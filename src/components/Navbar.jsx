@@ -151,6 +151,7 @@ const Navbar = () => {
                 <img src={logo} alt="" className="w-5 md:w-7" />
               </div>
               <h3 className="md:text-xl text-p font-bold">Giftify</h3>
+
             </div>
           </NavLink>
         </div>
