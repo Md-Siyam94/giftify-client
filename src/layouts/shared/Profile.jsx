@@ -124,7 +124,7 @@ const Profile = () => {
                                             <span className="ml-2">Instagram</span>
                                         </button>
                                         <button className="flex items-center justify-center p-2 border border-gray-200 rounded-lg hover:bg-gray-50">
-                                            {/* <Linkedin className="w-5 h-5 text-blue-700" /> */}
+                                            {/* <Linkedin className="w-5 h-5 textddssds-blue-700" /> */}
                                             <span className="ml-2">LinkedIn</span>
                                         </button>
                                     </div>
