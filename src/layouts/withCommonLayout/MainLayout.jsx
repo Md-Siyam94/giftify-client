@@ -6,11 +6,11 @@ import Footer from '../../components/Footer';
 const MainLayout = () => {
     return (
         <div>
-            <header className='max-w-screen-2xl '>
-                <Navbar/>
+            <header className='sticky top-0 z-10'>
+                <Navbar />
             </header>
             <main>
-                <Outlet/>
+                <Outlet />
             </main>
         {/* Footer */}
             <footer>

@@ -1,19 +1,11 @@
-import {
-  createBrowserRouter,
-
-} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layouts/withCommonLayout/MainLayout";
-import Home from '../layouts/withCommonLayout/pages/(home)/Home'
-import SignUp from '../layouts/withCommonLayout/pages/(signUp)/SignUp'
-import SignIn from '../layouts/withCommonLayout/pages/(signIn)/SignIn'
+import Home from "../layouts/withCommonLayout/pages/(home)/Home";
+import SignUp from "../layouts/withCommonLayout/pages/(signUp)/SignUp";
+import SignIn from "../layouts/withCommonLayout/pages/(signIn)/SignIn";
 import DashboardLayout from "../layouts/dashboardLayout/DashboardLayout";
-import MakeGift from "../layouts/withCommonLayout/pages/makeGift/MakeGift";
 import GiftCatalog from "../layouts/withCommonLayout/pages/gift catalog/GiftCatalog";
-import UserDashboard from "../layouts/dashboardLayout/Pages/User/UserDashboard/UserDashboard";
-import MyGifts from "../layouts/dashboardLayout/Pages/User/MyGifts/MyGifts";
-import WishList from "../layouts/dashboardLayout/Pages/User/WishList/WishList";
-import Profile from "../layouts/shared/Profile";
-
+import Profile from "../layouts/dashboardLayout/Pages/shared/Profile";
 
 
 const router = createBrowserRouter([
@@ -24,51 +16,63 @@ const router = createBrowserRouter([
     //   errorElement: <div>Error</div>,
     children: [
       {
-        path: '/',
+        path: "/",
         element: <Home></Home>,
       },
       {
         path: "/make-gift",
-        element: <MakeGift></MakeGift>
+        element: <MakeGiftLayout></MakeGiftLayout>,
+        children: [
+          {
+            path: "/make-gift",
+            element: <SelectTheme></SelectTheme>,
+          },
+          {
+            path: "/make-gift/select-theme",
+            element: <SelectTheme></SelectTheme>,
+          },
+          {
+            path: "/make-gift/select-text",
+            element: <SelectText />,
+          },
+          {
+            path: '/make-gift/select-upload-media',
+            element: <UploadMedia></UploadMedia>
+          },
+          {
+            path: '/make-gift/select-music-effects',
+            element: <MusicAndEffects></MusicAndEffects>
+          }
+        ],
       },
       {
         path: "/gift-catalog",
-        element: <GiftCatalog></GiftCatalog>
+        element: <GiftCatalog></GiftCatalog>,
       },
       {
-        path: 'signUp',
+        path: "signUp",
         element: <SignUp></SignUp>,
       },
       {
-        path: 'signIn',
+        path: "signIn",
         element: <SignIn></SignIn>,
       },
-
-    ]
+    ],
   },
   {
     path: "/dashboard",
     element: <DashboardLayout></DashboardLayout>,
     children:[
       {
-        path: "",
-        element: <UserDashboard></UserDashboard>
-      },{
-        path: "myGifts",
-        element: <MyGifts></MyGifts>
-      },{
-        path: "wishlist",
-        element: <WishList></WishList>
-      },{
-        path: "profile",
+        path: "/dashboard/profile",
         element: <Profile></Profile>
-      }
+      },
+
+
+      
     ]
-  },
-//   {
-//     path:'*',
-//     // element:<ErrorPage></ErrorPage>
-// }
+
+  }
 
 ]);
 
