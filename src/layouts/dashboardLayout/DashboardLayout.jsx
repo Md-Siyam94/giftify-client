@@ -59,6 +59,7 @@ const DashboardLayout = () => {
           <FaRegHeart className="text-2xl" /> Wishlist
         </NavLink>
       </li>
+      
       {/* <li>
         <NavLink
           to="/analytics"

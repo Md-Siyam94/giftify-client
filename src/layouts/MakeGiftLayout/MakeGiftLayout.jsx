@@ -8,7 +8,7 @@ const MakeGiftLayout = () => {
       <div className='category-top'>
       <MakeGiftCategory></MakeGiftCategory>
       </div>
-
+      
       <div className='dynamic-change-bottom flex'>
   
       <Outlet></Outlet>
