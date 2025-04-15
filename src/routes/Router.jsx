@@ -1,3 +1,4 @@
+
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layouts/withCommonLayout/MainLayout";
 import Home from "../layouts/withCommonLayout/pages/(home)/Home";
@@ -5,8 +6,12 @@ import SignUp from "../layouts/withCommonLayout/pages/(signUp)/SignUp";
 import SignIn from "../layouts/withCommonLayout/pages/(signIn)/SignIn";
 import DashboardLayout from "../layouts/dashboardLayout/DashboardLayout";
 import GiftCatalog from "../layouts/withCommonLayout/pages/gift catalog/GiftCatalog";
-import Profile from "../layouts/dashboardLayout/Pages/shared/Profile";
-
+import MakeGiftLayout from "../layouts/MakeGiftLayout/MakeGiftLayout";
+import SelectTheme from "../layouts/withCommonLayout/pages/makeGift/SelectTheme";
+import SelectText from "../layouts/withCommonLayout/pages/makeGift/SelectText";
+import UploadMedia from "../layouts/withCommonLayout/pages/makeGift/UploadMedia";
+import MusicAndEffects from "../layouts/withCommonLayout/pages/makeGift/MusicAndEffects";
+import Profile from "../layouts/shared/Profile";
 
 const router = createBrowserRouter([
   {
@@ -62,18 +67,15 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <DashboardLayout></DashboardLayout>,
-    children:[
+    // ToDo: seterror
+    // errorElement: <>error</>,
+    children: [
       {
         path: "/dashboard/profile",
-        element: <Profile></Profile>
+        element: <Profile></Profile>,
       },
-
-
-      
-    ]
-
-  }
-
+    ],
+  },
 ]);
 
 export default router;
