@@ -1,0 +1,44 @@
+[
+    {
+        "id": 1,
+        "title": "Amazon E-Gift Card",
+        "description": "Perfect for any occasion, instantly delivered",
+        "price": 25,
+        "rating": 4.9,
+        "reviews": 2508,
+        "image": "https://via.placeholder.com/300",
+        "category": "E-Gift Cards",
+        "featured": true
+    },
+    {
+        "id": 2,
+        "title": "Birthday Animation Bundle",
+        "description": "Personalized animated birthday wishes with music",
+        "price": 12.99,
+        "rating": 4.8,
+        "reviews": 1208,
+        "image": "https://via.placeholder.com/300",
+        "category": "Animated Greetings"
+    },
+    {
+        "id": 3,
+        "title": "Virtual Concert Experience",
+        "description": "Live streaming concert with interactive features",
+        "price": 29.99,
+        "rating": 4.7,
+        "reviews": 895,
+        "image": "https://via.placeholder.com/300",
+        "category": "Virtual Experiences"
+    },
+    {
+        "id": 4,
+        "title": "Anniversary Love Package",
+        "description": "Romantic digital celebration bundle",
+        "price": 19.99,
+        "rating": 4.3,
+        "reviews": 1398,
+        "image": "https://via.placeholder.com/300",
+        "category": "Animated Greetings",
+        "featured": true
+    }
+]
