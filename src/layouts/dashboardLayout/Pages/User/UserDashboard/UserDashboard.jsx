@@ -10,7 +10,7 @@ const UserDashboard = () => {
             {/* Welcome Section */}
             <div className="flex justify-between items-center">
                 <div>
-                    <h3 className="text-xl md:text-2xl font-bold">Welcome Back !...</h3>
+                    <h3 className="text-xl md:text-2xl font-bold">Welcome Back !.....</h3>
                     <p>Track and manage your virtual gifts</p>
                 </div>
                 <div className="flex items-center space-x-3 ">
