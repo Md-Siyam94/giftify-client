@@ -6,11 +6,7 @@ import SignIn from "../layouts/withCommonLayout/pages/(signIn)/SignIn";
 import DashboardLayout from "../layouts/dashboardLayout/DashboardLayout";
 import GiftCatalog from "../layouts/withCommonLayout/pages/gift catalog/GiftCatalog";
 import Profile from "../layouts/dashboardLayout/Pages/shared/Profile";
-import MakeGiftLayout from "../layouts/MakeGiftLayout/MakeGiftLayout";
-import SelectTheme from "../layouts/withCommonLayout/pages/makeGift/SelectTheme";
-import SelectText from "../layouts/withCommonLayout/pages/makeGift/SelectText";
-import UploadMedia from "../layouts/withCommonLayout/pages/makeGift/UploadMedia";
-import MusicAndEffects from "../layouts/withCommonLayout/pages/makeGift/MusicAndEffects";
+
 
 const router = createBrowserRouter([
   {
@@ -66,15 +62,18 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <DashboardLayout></DashboardLayout>,
-    // ToDo: seterror
-    // errorElement: <>error</>,
-    children: [
+    children:[
       {
         path: "/dashboard/profile",
-        element: <Profile></Profile>,
+        element: <Profile></Profile>
       },
-    ],
-  },
+
+
+      
+    ]
+
+  }
+
 ]);
 
 export default router;
