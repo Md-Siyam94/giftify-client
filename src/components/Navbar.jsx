@@ -156,11 +156,12 @@ const Navbar = () => {
           </NavLink>
         </div>
 
+        
+
+        <div className="navbar-end">
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1 space-x-3">{links}</ul>
         </div>
-
-        <div className="navbar-end">
           {user ? (
             <div className="flex justify-center items-center gap-3">
               <div className="dropdown dropdown-end">
