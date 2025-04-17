@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { auth } from "../../firebase/firebase.init";
 import AuthContext from "./AuthContext";
@@ -37,6 +37,20 @@ const AuthProvider = ({ children }) => {
         return signOut(auth);
     }
 
+    const forgotPassword = (email) => {
+        return sendPasswordResetEmail(auth, email)
+            .then(() => {
+                console.log("Password reset email sent");
+                // You can return a success message here or show a toast
+                return "Password reset email sent";
+            })
+            .catch((error) => {
+                console.error("Error sending password reset email:", error.message);
+                throw new Error(error.message);
+            });
+    };
+
+
 
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
@@ -61,6 +75,7 @@ const AuthProvider = ({ children }) => {
         signOutUser,
         createUser,
         updateUserProfile,
+        forgotPassword,
 
     }
 

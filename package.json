@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.74.4",
+    "axios": "^1.8.4",
     "firebase": "^11.4.0",
     "framer-motion": "^12.5.0",
     "keen-slider": "^6.8.6",
