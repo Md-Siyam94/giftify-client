@@ -9,18 +9,15 @@ import Swal from "sweetalert2";
 
 const SignIn = () => {
 
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
-    const { signInUser } = useContext(AuthContext);
+    const { register, handleSubmit, reset, formState: { errors }, getValues } = useForm();
+
+    const { signInUser, forgotPassword } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const onSubmit = async (data) => {
-
-
-
         signInUser(data.email, data.password)
             .then(result => {
-                // console.log('Signin successful: ', result.user.email);
-
+                // ✅ Login successful, so no failed count update needed
                 Swal.fire({
                     position: "center",
                     icon: "success",
@@ -31,25 +28,77 @@ const SignIn = () => {
                 reset();
                 navigate('/');
             })
-            .catch(error => {
-                console.log('ERROR from Firebase', error.message);
-                Swal.fire({
-                    title: 'Error!',
-                    text: 'Invalid Email or Password!!',
-                    icon: 'error',
-                    confirmButtonText: 'Try Again'
-                });
-                // reset();
-            })
+            .catch(async error => {
+                console.log('Firebase Error:', error.message);
 
+                // ✅ Now that it's a Firebase login error, check with server
+                try {
+                    const res = await fetch('http://localhost:5000/auth/track-failed-login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email: data.email })
+                    });
 
+                    const result = await res.json();
 
-
-        // console.log(data.email);
-        // console.log(data.password);
-
-
+                    if (result.status === 'locked') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Account Locked!',
+                            text: 'Too many failed attempts. Please try again later.',
+                        });
+                    } else {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Invalid Email or Password!!',
+                            icon: 'error',
+                            confirmButtonText: 'Try Again'
+                        });
+                    }
+                } catch (serverError) {
+                    console.error('Server Error:', serverError);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops!',
+                        text: 'Server issue. Try again later.',
+                    });
+                }
+            });
     };
+
+
+
+    // forgot password function
+    const handleForgotPassword = () => {
+        const email = getValues("email"); // Get email from form
+        if (!email) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Enter Email',
+                text: 'Please type your email first before clicking "Forgot password".',
+            });
+            return;
+        }
+
+        forgotPassword(email) // Call the forgotPassword function from context
+            .then((message) => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Reset Link Sent',
+                    text: 'Check your email inbox or spam folder.',
+                    timer: 2500,
+                    showConfirmButton: false,
+                });
+            })
+            .catch((error) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: error.message,
+                });
+            });
+    };
+
 
 
     return (
@@ -98,6 +147,16 @@ const SignIn = () => {
                                 {errors.password?.type === 'pattern' && <p className="text-red-600">Password must have one Uppercase one lower case, one number and one special character.</p>}
 
                             </div>
+
+                            {/* forgot password */}
+                            <h5
+                                onClick={handleForgotPassword}
+                                className="text-sm text-p hover:underline text-center cursor-pointer mt-2 mb-[-8px]"
+                            >
+                                Forgot password?
+                            </h5>
+
+
                             <div className="form-control mt-6">
                                 <input className="btn btn-p w-full text-neutral-content" type="submit" value="Sign in" />
                             </div>

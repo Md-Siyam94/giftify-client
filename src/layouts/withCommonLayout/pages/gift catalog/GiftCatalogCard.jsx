@@ -1,6 +1,9 @@
 import React from 'react';
 
 const GiftCatalogCard = ({ gift }) => {
+
+    console.log(gift.price);
+
     return (
         <div>
             <div className="card bg-base-100 shadow-xl relative">
