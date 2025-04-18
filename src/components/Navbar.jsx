@@ -101,7 +101,7 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          to="/dashboard"
+          to="/dashboard/admin_dashboard"
           className={({ isActive }) =>
             isActive ? "text-white btn-p" : "text-gray-700"
           }
@@ -156,11 +156,12 @@ const Navbar = () => {
           </NavLink>
         </div>
 
+        
+
+        <div className="navbar-end">
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1 space-x-3">{links}</ul>
         </div>
-
-        <div className="navbar-end">
           {user ? (
             <div className="flex justify-center items-center gap-3">
               <div className="dropdown dropdown-end">
@@ -171,8 +172,12 @@ const Navbar = () => {
                 </div>
                 <ul
                   tabIndex={0}
-                  className="menu menu-sm dropdown-content bg-base-100 text-base-content rounded-box z-[1] mt-3 w-52 p-4 shadow space-y-2"
+                  className="menu menu-sm dropdown-content bg-base-100 font-semibold  rounded-box z-[1] mt-3 w-52 p-4 shadow space-y-2"
                 >
+                  <div className="px-2 text-small  opacity-70">
+                    {user?.displayName} <br />
+                    {user?.email}
+                  </div>
                   {dropdownLinks}
                 </ul>
               </div>

@@ -2,30 +2,59 @@ import React from "react";
 import { FiGift } from "react-icons/fi";
 import { FaUsers } from "react-icons/fa";
 import { MdCreditCard, MdFavorite } from "react-icons/md";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../../../../hooks/useAxiosPublic";
+
+
+const StatsSection = () => {
+  const axiosPublic = useAxiosPublic();
+
+const { data: userStats = {} } = useQuery({
+  queryKey: ['user-stats'],
+  queryFn: async () => {
+    const res = await axiosPublic.get('/giftify/users/admin-stats');
+    return res.data;
+  }
+});
+const { data: giftStats = {} } = useQuery({
+  queryKey: ['gift-stats'],
+  queryFn: async () => {
+    const res = await axiosPublic.get('/giftify/gifts/admin-stats');
+    return res.data;
+  }
+});
+
+const expectedTotalUser = 1000; 
+const currentTotalUser = userStats.totalUser || 0;
+
+const userPercentage =
+  expectedTotalUser > 0
+    ? ((currentTotalUser / expectedTotalUser) * 100)
+    : "0";
+
 
 const stats = [
   {
     id: 1,
-    icon: <FiGift className="text-purple-600 text-2xl" />,
-    bgColor: "bg-purple-100",
-    value: "248",
-    label: "Gifts Sent",
-    growth: "12%",
-  },
-  {
-    id: 2,
     icon: <FaUsers className="text-blue-600 text-2xl" />,
     bgColor: "bg-blue-100",
-    value: "1,423",
-    label: "Recipients",
-    growth: "8%",
+    value:userStats.totalUser || 0 ,
+    label: "Total User",
+    growth: `${userPercentage} %`,
+  },{
+    id: 2,
+    icon: <FiGift className="text-purple-600 text-2xl" />,
+    bgColor: "bg-purple-100",
+    value: giftStats.totalGift || 0,
+    label: " Total Gift",
+    growth: "12%",
   },
   {
     id: 3,
     icon: <MdCreditCard className="text-green-600 text-2xl" />,
     bgColor: "bg-green-100",
     value: "$2,856",
-    label: "Total Spent",
+    label: "Total Earning",
     growth: "24%",
   },
   {
@@ -38,7 +67,7 @@ const stats = [
   },
 ];
 
-const StatsSection = () => {
+
   return (
     <div className="p-2 mt-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

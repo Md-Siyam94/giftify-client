@@ -26,7 +26,7 @@ const WhyChooseUs = () => {
 
     return (
         <>
-            <div className="py-10 px-5 container mx-auto">
+            <div className="py-24 pb-44 px-5 container mx-auto">
                 <h2 className="text-2xl font-bold text-center mb-6">Why Choose Us</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 text-center">
                     {features.map((feature) => (

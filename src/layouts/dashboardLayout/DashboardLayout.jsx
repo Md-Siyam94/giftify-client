@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { FaRegHeart, FaRegUserCircle } from "react-icons/fa";
 import { FiGift } from "react-icons/fi";
 import { IoClose, IoMenu } from "react-icons/io5";
-import { LuMessageSquareMore } from "react-icons/lu";
-import {  MdOutlineAnalytics, MdOutlineSettings, MdOutlineSpaceDashboard } from "react-icons/md";
+import {  MdOutlineAnalytics, MdOutlineLibraryAdd, MdOutlineSettings, MdOutlineSpaceDashboard } from "react-icons/md";
 import { NavLink, Outlet } from "react-router-dom";
 
 const DashboardLayout = () => {
@@ -13,7 +12,7 @@ const DashboardLayout = () => {
     <>
       <li>
         <NavLink
-          to="/dashboard"
+          to="/dashboard/admin_dashboard"
           className={({ isActive }) =>
             isActive
               ? "text-purple-500 font-semibold border-l-4 border-purple-500 pl-2 flex items-center gap-x-1.5"
@@ -23,7 +22,7 @@ const DashboardLayout = () => {
          <MdOutlineSpaceDashboard className="text-2xl" /> Dashboard
         </NavLink>
       </li>
-      <li>
+      {/* <li>
         <NavLink
           to="/dashboard/profile"
           className={({ isActive }) =>
@@ -58,11 +57,13 @@ const DashboardLayout = () => {
         >
           <FaRegHeart className="text-2xl" /> Wishlist
         </NavLink>
-      </li>
+      </li> */}
+
+      {/* Admin links */}
       
-      {/* <li>
+      <li>
         <NavLink
-          to="/analytics"
+          to="/dashboard/analytics"
           className={({ isActive }) =>
             isActive
               ? "text-purple-500 font-semibold border-l-4 border-purple-500 pl-2 flex items-center gap-x-1.5"
@@ -74,18 +75,30 @@ const DashboardLayout = () => {
       </li>
       <li>
         <NavLink
-          to="/messages"
+          to="/dashboard/add_gifts"
           className={({ isActive }) =>
             isActive
               ? "text-purple-500 font-semibold border-l-4 border-purple-500 pl-2 flex items-center gap-x-1.5"
               : "text-gray-700 hover:text-purple-500 pl-2 flex items-center gap-x-1.5"
           }
         >
-          <LuMessageSquareMore className="text-2xl" /> Messages
-          <span className="ml-2 bg-purple-500 text-white text-xs px-2 py-1 rounded-full">3</span>
+          <MdOutlineLibraryAdd className="text-2xl" /> Add Gifts
         </NavLink>
       </li>
       <li>
+        <NavLink
+          to="/dashboard/profile"
+          className={({ isActive }) =>
+            isActive
+              ? "text-purple-500 font-semibold border-l-4 border-purple-500 pl-2 flex items-center gap-x-1.5"
+              : "text-gray-700 hover:text-purple-500 pl-2 flex items-center gap-x-1.5"
+          }
+        >
+         <FaRegUserCircle className="text-2xl" /> Profile
+          {/* <span className="ml-2 bg-purple-500 text-white text-xs px-2 py-1 rounded-full">3</span> */}
+        </NavLink>
+      </li>
+      {/* <li>
         <NavLink
           to="/settings"
           className={({ isActive }) =>

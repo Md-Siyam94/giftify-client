@@ -12,6 +12,10 @@ import SelectText from "../layouts/withCommonLayout/pages/makeGift/SelectText";
 import UploadMedia from "../layouts/withCommonLayout/pages/makeGift/UploadMedia";
 import MusicAndEffects from "../layouts/withCommonLayout/pages/makeGift/MusicAndEffects";
 import Profile from "../layouts/shared/Profile";
+import AdminDashboard from "../layouts/dashboardLayout/Pages/Admin/AdminDashboard/AdminDashboard";
+import Analytics from "../layouts/dashboardLayout/Pages/Admin/Analytics/Analytics";
+import AddGifts from "../layouts/dashboardLayout/Pages/Admin/AddGifts/AddGifts";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -52,7 +56,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/gift-catalog",
-        element: <GiftCatalog></GiftCatalog>,
+        element: <PrivateRoute><GiftCatalog></GiftCatalog></PrivateRoute>,
       },
       {
         path: "signUp",
@@ -73,6 +77,18 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/profile",
         element: <Profile></Profile>,
+      },
+      {
+        path: "/dashboard/admin_dashboard",
+        element:<AdminDashboard></AdminDashboard> ,
+      },
+      {
+        path: "/dashboard/analytics",
+        element:<Analytics></Analytics> ,
+      },
+      {
+        path: "/dashboard/add_gifts",
+        element:<AddGifts></AddGifts> ,
       },
     ],
   },
