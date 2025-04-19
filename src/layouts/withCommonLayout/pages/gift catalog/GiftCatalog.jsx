@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import GiftCatalogCard from "./GiftCatalogCard";
 import useAxiosPublic from "../../../../hooks/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
+import LoadingSpinner from "../../../../components/LoadingSpinner/LoadingSpinner";
 
 const GiftCatalog = () => {
     const [filteredGifts, setFilteredGifts] = useState([]);
@@ -69,18 +70,20 @@ const GiftCatalog = () => {
         setTimeout(() => setApplySorting(true), 0);
     };
 
-    if (isLoading) return <p className="text-center py-8">Loading gifts...</p>;
+    if (isLoading) return <LoadingSpinner />;
     if (isError) return <p className="text-center text-red-500 py-8">Failed to load gifts.</p>;
 
     return (
         <div className="container mx-auto p-6">
-            <h1 className="text-4xl font-bold text-center">Choose the Perfect Gift</h1>
-            <p className="text-center text-gray-600 mt-2">
-                Discover our collection of unique digital gifts, from e-gift cards to personalized experiences.
-            </p>
+            <div className="pt-5 pb-6 space-y-2.5">
+                <h1 className="text-4xl font-bold text-center">Choose the Perfect Gift</h1>
+                <p className="text-center text-gray-600 mt-2">
+                    Discover our collection of unique digital gifts, from e-gift cards to personalized experiences.
+                </p>
+            </div>
 
             {/* Search and Filter */}
-            <div className="flex flex-wrap justify-between gap-4 my-6">
+            <div className="flex flex-wrap justify-between gap-4 mt-6 mb-9">
                 {/* Search Input */}
                 <div>
                     <label className="input input-bordered flex items-center gap-2">
@@ -123,7 +126,7 @@ const GiftCatalog = () => {
             </div>
 
             {/* Category Tabs */}
-            <div className="tabs tabs-boxed flex justify-center mb-6">
+            <div className="tabs tabs-boxed flex justify-center mb-9">
                 {["All Gifts", "E-Gift Cards", "Animated Greetings", "Virtual Experiences"].map((category) => (
                     <button
                         key={category}
@@ -136,7 +139,7 @@ const GiftCatalog = () => {
             </div>
 
             {/* Gift Cards Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-7 lg:gap-8 mb-28 items-stretch">
                 {filteredGifts.map((gift) => (
                     <GiftCatalogCard key={gift._id} gift={gift} />
                 ))}
