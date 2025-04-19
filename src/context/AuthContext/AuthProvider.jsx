@@ -40,7 +40,7 @@ const AuthProvider = ({ children }) => {
     const forgotPassword = (email) => {
         return sendPasswordResetEmail(auth, email)
             .then(() => {
-                console.log("Password reset email sent");
+                // console.log("Password reset email sent");
                 // You can return a success message here or show a toast
                 return "Password reset email sent";
             })
