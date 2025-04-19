@@ -1,125 +1,133 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
+import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import AuthContext from "../../../../../context/AuthContext/AuthContext";
 import useAxiosPublic from "../../../../../hooks/useAxiosPublic";
 
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+
 const AddGifts = () => {
-
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const { user } = useContext(AuthContext);
-    const axiosPublic=useAxiosPublic();
-    const userEmail = user?.email;
-    const navigate = useNavigate(); 
+    const axiosPublic = useAxiosPublic();
+    const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const onSubmit = async (data) => {
+        try {
+            const imageFile = new FormData();
+            imageFile.append("image", data.image[0]);
 
-        const form = e.target;
-        const title = form.title.value;
-        const description = form.description.value;
-        const price = form.distance.value;
-        const category = form.description.value;
-        // const image = form.image.value;
-
-        // Create the Gift object
-        const newGift = {
-            title,
-            description,
-            price,
-            category,
-            // image,
-            userEmail,
-        };
-
-        axiosPublic
-            .post("/giftify/gifts/create", newGift)
-            .then((response) => {
-                console.log("Gift added successfully:", response.data);
-                Swal.fire({
-                    title: "Success!",
-                    text: "Gift  added successfully!",
-                    icon: "success",
-                    confirmButtonText: "OK",
-                }).then(() => {
-                    navigate("/gift-catalog");
-                });
-            })
-            .catch((error) => {
-                console.error("Error adding Gift:", error.response ? error.response.data : error.message);
-                Swal.fire({
-                    title: "Error!",
-                    text: error.response ? error.response.data.message : "There was an error adding the Gift. Please try again.",
-                    icon: "error",
-                    confirmButtonText: "OK",
-                });
+            const imageRes = await axiosPublic.post(image_hosting_api, imageFile, {
+                headers: { "content-type": "multipart/form-data" },
             });
+
+            if (imageRes.data.success) {
+                const imageUrl = imageRes.data.data.display_url;
+
+                const newGift = {
+                    title: data.title,
+                    description: data.description,
+                    image: imageUrl,
+                    price: parseFloat(data.price),
+                    category: data.category,
+                    featured: false,
+                    // createdBy: user?.email
+                };
+
+                const response = await axiosPublic.post("/giftify/gifts/create", newGift);
+
+                if (response.data?.insertedId) {
+                    Swal.fire({
+                        title: "Success!",
+                        text: "Gift added successfully!",
+                        icon: "success",
+                        confirmButtonText: "OK",
+                    }).then(() => {
+                        reset();
+                        navigate("/gift-catalog");
+                    });
+                }
+            } 
+        } catch (error) {
+            console.error("Add gift error:", error);
+            Swal.fire({
+                title: "Error!",
+                text: "Failed to add gift. Try again.",
+                icon: "error",
+                confirmButtonText: "OK",
+            });
+        }
     };
 
     return (
-        <div className="max-w-4xl mx-auto p-6  shadow-lg rounded-lg mb-4">
+        <div className="max-w-4xl mx-auto p-6 shadow-lg rounded-lg mb-4">
             <h2 className="text-2xl font-bold mb-4 text-purple-500">Add Gift</h2>
-            <form onSubmit={handleSubmit}>
-                {/* Gift Title */}
-                <div className="mb-4">
-                    <label className="block text-gray-700 font-medium mb-2">Gift Title</label>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+
+                {/* Title */}
+                <div className="form-control">
+                    <label className="text-sm font-medium text-gray-700 mb-1">Title</label>
                     <input
                         type="text"
-                        name="title"
-                        className="w-full border rounded-lg p-2"
-                        placeholder="Enter Gift title"
-                        required
+                        className="input input-bordered w-full"
+                        {...register("title", { required: "Title is required" })}
                     />
+                    {errors.title && <span className="text-red-600 text-xs">{errors.title.message}</span>}
                 </div>
-                {/* Gift Description */}
-                <div className="mb-4">
-                    <label className="block text-gray-700 font-medium mb-2">Gift Description</label>
+
+                {/* Image */}
+                <div className="form-control">
+                    <label className="text-sm font-medium text-gray-700 mb-1">Image</label>
+                    <input
+                        type="file"
+                        className="file-input file-input-bordered w-full"
+                        {...register("image", { required: "Image is required" })}
+                    />
+                    {errors.image && <span className="text-red-600 text-xs">{errors.image.message}</span>}
+                </div>
+
+                {/* Description */}
+                <div className="form-control">
+                    <label className="text-sm font-medium text-gray-700 mb-1">Description</label>
                     <input
                         type="text"
-                        name="description"
-                        className="w-full border rounded-lg p-2"
-                        placeholder="Enter Gift description"
-                        required
+                        className="input input-bordered w-full"
+                        {...register("description", { required: "Description is required" })}
                     />
+                    {errors.description && <span className="text-red-600 text-xs">{errors.description.message}</span>}
                 </div>
-                {/* Gift Price */}
-                <div className="mb-4">
-                    <label className="block text-gray-700 font-medium mb-2">Gift Price</label>
+
+                {/* Category */}
+                <div className="form-control">
+                    <label className="text-sm font-medium text-gray-700 mb-1">Category</label>
+                    <select
+                        className="select select-bordered w-full"
+                        {...register("category", { required: "Category is required" })}
+                    >
+                        <option value="">Select Category</option>
+                        <option value="E-gift">Virtual Experiences </option>
+                        <option value="Virtual">Animated Greetings</option>
+                        <option value="Animated">E-Gift Cards</option>
+                    </select>
+                    {errors.category && <span className="text-red-600 text-xs">{errors.category.message}</span>}
+                </div>
+
+                {/* Price */}
+                <div className="form-control">
+                    <label className="text-sm font-medium text-gray-700 mb-1">Price</label>
                     <input
                         type="number"
-                        name="price"
-                        className="w-full border rounded-lg p-2"
-                        placeholder="Enter Gift Price"
-                        // required
+                        className="input input-bordered w-full"
+                        {...register("price", { required: "Price is required" })}
                     />
-                </div>
-                {/* Gift Category */}
-                <div className="mb-4">
-                    <label className="block text-gray-700 font-medium mb-2">Category</label>
-                    <select name="category" className="w-full border rounded-lg p-2" required>
-                        <option value="25k">E-Gift</option>
-                        <option value="10k">Virtual</option>
-                        <option value="3k">Animated</option>
-                    </select>
+                    {errors.price && <span className="text-red-600 text-xs">{errors.price.message}</span>}
                 </div>
 
-                {/* Gift Image */}
-                {/* <div className="mb-4">
-                    <label className="block text-gray-700 font-semibold mb-2"> Gift Image URL</label>
-                    <input
-                        type="url"
-                        name="image"
-                        placeholder="Enter Gift image URL"
-                        className="w-full p-2 border rounded-md"
-                        required
-                    />
-                </div> */}
-
-                {/* Submit Button */}
-                <button
-                    type="submit"
-                    className="bg-purple-500 text-white py-2 px-4 rounded-lg hover:bg-orange-600"
-                >
-                    Submit
+                {/* Submit */}
+                <button type="submit" className="btn mx-auto bg-purple-600 text-white text-lg font-semibold w-full">
+                    Add
                 </button>
             </form>
         </div>
