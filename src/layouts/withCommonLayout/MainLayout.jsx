@@ -9,12 +9,12 @@ const MainLayout = () => {
             <header className='sticky top-0 z-10'>
                 <Navbar />
             </header>
-            <main>
+            <main className='min-h-screen'>
                 <Outlet />
             </main>
-        {/* Footer */}
+            {/* Footer */}
             <footer>
-          <Footer></Footer>
+                <Footer></Footer>
             </footer>
         </div>
     );
