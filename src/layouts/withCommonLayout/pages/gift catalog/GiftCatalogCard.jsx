@@ -29,7 +29,6 @@ const GiftCatalogCard = ({ gift }) => {
 
 
 
-
     return (
         <div>
             <div className="card bg-base-100 shadow-lg relative h-full">
