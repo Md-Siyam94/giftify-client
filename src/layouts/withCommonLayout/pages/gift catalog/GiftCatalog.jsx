@@ -69,7 +69,7 @@ const GiftCatalog = () => {
         setTimeout(() => setApplySorting(true), 0);
     };
 
-    if (isLoading) return <p className="text-center py-8">Loading gifts...</p>;
+    // if (isLoading) return <p className="text-center py-8">Loading gifts...</p>;
     if (isError) return <p className="text-center text-red-500 py-8">Failed to load gifts.</p>;
 
     return (
