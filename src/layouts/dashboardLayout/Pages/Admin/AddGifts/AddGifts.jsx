@@ -38,7 +38,8 @@ const AddGifts = () => {
 
                 const response = await axiosPublic.post("/giftify/gifts/create", newGift);
 
-                if (response.data.insertedId) {
+                // console.log(response);
+                if (response.data.success) {
                     Swal.fire({
                         title: "Success!",
                         text: "Gift added successfully!",
