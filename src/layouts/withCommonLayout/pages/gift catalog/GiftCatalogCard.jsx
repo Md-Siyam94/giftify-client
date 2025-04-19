@@ -1,9 +1,34 @@
 import React from 'react';
 import { FaCartPlus, FaEye } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 
 const GiftCatalogCard = ({ gift }) => {
 
     // console.log(gift.price);
+
+    const handleViewDetails = (gift) => {
+        Swal.fire({
+            title: gift.title,
+            imageUrl: gift.image,
+            imageWidth: 400,
+            imageHeight: 250,
+            imageAlt: gift.title,
+            html: `
+                <div class="text-left ml-10 space-y-1.5">
+                    <p><strong>Category:</strong> ${gift.category}</p>
+                    <p><strong>Price:</strong> $${gift.price}</p>
+                    <p><strong>Description:</strong> ${gift.description}</p>
+                    <p><strong>Rating:</strong> ${gift.rating}</p>
+                </div>
+            `,
+            showCloseButton: true,
+        });
+    };
+
+
+
+
+
 
     return (
         <div>
@@ -46,9 +71,14 @@ const GiftCatalogCard = ({ gift }) => {
                     <div className="py-1.5 flex justify-between items-center">
 
 
-                        <div className="text-gray-700 text-lg cursor-pointer">
+                        {/* <div className="text-gray-700 text-lg cursor-pointer">
                             <FaEye />
-                        </div>
+                        </div> */}
+
+                        <button className="" onClick={() => handleViewDetails(gift)}>
+                            <div className="text-lg text-gray-700"><FaEye /></div>
+                        </button>
+
                         <div className="text-lg text-s cursor-pointer">
                             <FaCartPlus />
                         </div>

@@ -17,7 +17,7 @@ const GiftCatalog = () => {
     const { data: gifts = [], isLoading, isError } = useQuery({
         queryKey: ['gifts'],
         queryFn: async () => {
-            const res = await axiosPublic.get('/gifts');
+            const res = await axiosPublic.get('/giftify/gifts');
             return res.data;
         }
     });

@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const axiosPublic = axios.create({
-    // baseURL: "http://localhost:5000/giftify"
-    baseURL: "https://giftify-server-kappa.vercel.app/giftify"
+    // baseURL: "http://localhost:5000"
+    baseURL: "https://giftify-server-kappa.vercel.app"
 })
 
 
