@@ -1,15 +1,25 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import AuthContext from "../../../../context/AuthContext/AuthContext";
+import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import Swal from "sweetalert2";
 import SocialLogin from "../../../../components/SocialLogin";
+import { useState } from "react";
 
 
 
 const SignUp = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const { createUser, updateUserProfile } = useContext(AuthContext);
+    const [showPassword, setShowPassword] = useState(false);
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    const togglePassword = (e) => {
+        e.preventDefault();
+        setShowPassword(!showPassword);
+    };
 
     const onSubmit = async (data) => {
 
@@ -28,7 +38,7 @@ const SignUp = () => {
                         });
                         reset();
 
-
+                        navigate(location.state ? location.state : "/");
 
                     })
                     .catch(error => console.log(error))
@@ -95,16 +105,19 @@ const SignUp = () => {
                             </div> */}
 
 
-                            <div className="form-control">
+                            <div className="form-control relative">
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input type="password"  {...register("password", {
+                                <input type={showPassword ? 'text' : 'password'}  {...register("password", {
                                     required: true,
                                     minLength: 6,
                                     maxLength: 20,
                                     pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/
                                 })} placeholder="password" className="input input-bordered" />
+                                <button onClick={togglePassword} className="absolute right-3 top-8 text-xl">
+                                    {showPassword ? <IoMdEyeOff /> : <IoMdEye />}
+                                </button>
                                 {errors.password?.type === 'required' &&
                                     <p className="text-red-600">Password is required</p>}
                                 {errors.password?.type === 'minLength' && <p className="text-red-600">Password must be 6 characters</p>}
