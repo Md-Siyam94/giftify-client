@@ -50,7 +50,7 @@ const AddGifts = () => {
                         navigate("/gift-catalog");
                     });
                 }
-            } 
+            }
         } catch (error) {
             console.error("Add gift error:", error);
             Swal.fire({
