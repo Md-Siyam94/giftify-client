@@ -37,6 +37,7 @@ const AddGifts = () => {
                 };
 
                 const response = await axiosPublic.post("/giftify/gifts/create", newGift);
+
                 // console.log(response);
                 if (response.data.success) {
                     Swal.fire({

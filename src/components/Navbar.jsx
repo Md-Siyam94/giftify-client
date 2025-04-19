@@ -75,6 +75,18 @@ const Navbar = () => {
           </div>
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          to="/gift_gallery"
+          className={({ isActive }) =>
+            isActive ? "text-white btn-p" : "text-gray-700"
+          }
+        >
+          <div className="flex justify-center items-center gap-1">
+            <h5>Gallery</h5>
+          </div>
+        </NavLink>
+      </li>
 
       <li>
         <NavLink

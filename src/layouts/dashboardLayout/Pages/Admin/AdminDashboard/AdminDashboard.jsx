@@ -9,12 +9,24 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosPublic from '../../../../../hooks/useAxiosPublic';
 import { toast } from 'react-toastify';
+import { useEffect } from 'react';
 
 const AdminDashboard = () => {
     const { user } = useContext(AuthContext);
     const axiosPublic = useAxiosPublic();
+    const [latestGifts, setLatestGifts] = useState([]);
     const [showUserModal, setShowUserModal] = useState(false);
     const [showGiftModal, setShowGiftModal] = useState(false);
+
+    useEffect(() => {
+        axiosPublic.get("/giftify/gifts") // all gifts
+            .then(res => {
+                const sorted = res.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                const latest = sorted.slice(0, 4); // latest 4 gifts
+                setLatestGifts(latest);
+            })
+            .catch(err => console.error("Failed to fetch gifts", err));
+    }, []);
 
     const { data: users = [], refetch } = useQuery({
         queryKey: ['all-users'],
@@ -81,7 +93,61 @@ const AdminDashboard = () => {
             {/* Recent/UpComing Gifts */}
             <div className="min-h-screen  p-4 md:p-8">
                 <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    {/* Recent Gifts Section */}
+
+                    {/* Latest Gift Section */}
+                    <div className="bg-white rounded-xl p-6 shadow-sm">
+                        <div className="flex items-center justify-between mb-6">
+                            <h2 className="text-xl font-semibold text-gray-800">Latest Gifts</h2>
+                            <div className="flex items-center gap-2">
+                                <button className="p-2 hover:bg-gray-100 rounded-full">
+                                    <FiFilter className="w-4 h-4 text-gray-400" />
+                                </button>
+                                <button
+                                    onClick={() => setShowGiftModal(true)}
+                                    className="text-purple-600 text-sm font-medium"
+                                >
+                                    View All
+                                </button>
+                            </div>
+                        </div>
+
+                        <div className="space-y-4">
+                        {latestGifts.map((l_gift) => (
+                    <div key={l_gift._id} className="flex items-center justify-between group cursor-pointer hover:bg-gray-50 -mx-2 px-2 py-1 rounded-lg">
+                        <div className="flex items-center gap-3">
+                            <div className="w-12 h-12 bg-gray-100 rounded-lg overflow-hidden">
+                                <img
+                                    src={l_gift.image}
+                                    alt={l_gift.title}
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+                            <div>
+                                <h3 className="font-medium text-gray-800">{l_gift.title}</h3>
+                                <p className="text-sm text-gray-500">{l_gift.category}</p>
+                            </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <div className="text-right">
+                                <p className="text-sm text-gray-600">
+                                    {new Date(l_gift.createdAt).toLocaleDateString("en-US", {
+                                        year: "numeric",
+                                        month: "long",
+                                        day: "numeric",
+                                    })}
+                                </p>
+                                <p className="text-sm text-green-500">Delivered</p>
+                            </div>
+                            <button className="p-1 hover:bg-gray-100 rounded-full">
+                                <MdKeyboardArrowRight className="w-4 h-4 text-gray-400" />
+                            </button>
+                        </div>
+                    </div>
+                ))}
+                        </div>
+                    </div>
+
+                    {/* Recent User Section */}
                     <div className="bg-white rounded-xl p-6 shadow-sm">
                         <div className="flex items-center justify-between mb-6">
                             <h2 className="text-xl font-semibold text-gray-800">Recent User</h2>
@@ -107,17 +173,12 @@ const AdminDashboard = () => {
                                     </div>
                                     <div>
                                         <h3 className="font-medium text-gray-800">David Johnson</h3>
+                                        <p className="text-sm text-gray-500">davidjohnson4545@gmail.com</p>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-2">
-                                    <div className="text-right">
-                                        <p className="text-sm text-gray-600">Mar 15, 2024</p>
-                                        <p className="text-sm text-green-500">Delivered</p>
-                                    </div>
-                                    <button className="p-1 hover:bg-gray-100 rounded-full">
-                                        <MdKeyboardArrowRight className="w-4 h-4 text-gray-400" />
-                                    </button>
-                                </div>
+                                <button className="p-1 hover:bg-gray-100 rounded-full">
+                                    <MdKeyboardArrowRight className="w-4 h-4 text-gray-400" />
+                                </button>
                             </div>
 
                             <div className="flex items-center justify-between">
@@ -131,81 +192,20 @@ const AdminDashboard = () => {
                                     </div>
                                     <div>
                                         <h3 className="font-medium text-gray-800">Lisa Anderson</h3>
-
+                                        <p className="text-sm text-gray-500">anderson555lisa@gmail.com</p>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-2">
-                                    <div className="text-right">
-                                        <p className="text-sm text-gray-600">Mar 14, 2024</p>
-                                        <p className="text-sm text-orange-500">Scheduled</p>
-                                    </div>
-                                    <button className="p-1 hover:bg-gray-100 rounded-full">
-                                        <MdKeyboardArrowRight className="w-4 h-4 text-gray-400" />
-                                    </button>
-                                </div>
+                                <button className="p-1 hover:bg-gray-100 rounded-full">
+                                    <MdKeyboardArrowRight className="w-4 h-4 text-gray-400" />
+                                </button>
                             </div>
                         </div>
                     </div>
 
-                    {/* Upcoming Section */}
-                    <div className="bg-white rounded-xl p-6 shadow-sm">
-                        <div className="flex items-center justify-between mb-6">
-                            <h2 className="text-xl font-semibold text-gray-800">Latest Gifts</h2>
-                            <div className="flex items-center gap-2">
-                                <button className="p-2 hover:bg-gray-100 rounded-full">
-                                    <FiFilter className="w-4 h-4 text-gray-400" />
-                                </button>
-                                <button
-                                    onClick={() => setShowGiftModal(true)}
-                                    className="text-purple-600 text-sm font-medium"
-                                >
-                                    View All
-                                </button>
-                            </div>
-                        </div>
-
-                        <div className="space-y-4">
-                            <div className="flex items-center justify-between group cursor-pointer hover:bg-gray-50 -mx-2 px-2 py-1 rounded-lg">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-12 h-12 bg-cyan-100 rounded-lg overflow-hidden">
-                                        <img
-                                            src="https://images.unsplash.com/photo-1513151233558-d860c5398176?w=48&h=48&fit=crop"
-                                            alt=""
-                                            className="w-full h-full object-cover"
-                                        />
-                                    </div>
-                                    <div>
-                                        <p className="text-sm text-gray-500">Birthday Animation</p>
-                                        <h3 className="font-medium text-gray-800">David Wilson</h3>
-                                        <p className="text-sm text-gray-500">Tomorrow</p>
-                                    </div>
-                                </div>
-                                <HiOutlineDotsVertical className="w-4 h-4 text-gray-400" />
-                            </div>
-
-                            <div className="flex items-center justify-between group cursor-pointer hover:bg-gray-50 -mx-2 px-2 py-1 rounded-lg">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-12 h-12 bg-gray-100 rounded-lg overflow-hidden">
-                                        <img
-                                            src="https://images.unsplash.com/photo-1513043105799-ba3f53df3ab7?w=48&h=48&fit=crop"
-                                            alt=""
-                                            className="w-full h-full object-cover"
-                                        />
-                                    </div>
-                                    <div>
-                                        <p className="text-sm text-gray-500">Anniversary Bundle</p>
-                                        <h3 className="font-medium text-gray-800">Miken smith</h3>
-                                        <p className="text-sm text-gray-500">Next Week</p>
-                                    </div>
-                                </div>
-                                <HiOutlineDotsVertical className="w-4 h-4 text-gray-400" />
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
-
+    {/* ~~~~~~All User Showing Modal  */}
             {showUserModal && (
                 <dialog id="user_modal" className="modal modal-open p-4">
                     <div className="modal-box max-w-4xl w-full">
@@ -258,7 +258,7 @@ const AdminDashboard = () => {
                     </div>
                 </dialog>
             )}
-
+ {/*~~~~~~~~ All Gift Showing Modal  */}
             {showGiftModal && (
                 <dialog id="gift_modal" className="modal modal-open px-4 py-6">
                     <div className="modal-box max-w-4xl w-full">

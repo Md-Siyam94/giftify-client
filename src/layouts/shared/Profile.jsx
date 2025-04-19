@@ -16,6 +16,7 @@ import {
   FaLinkedinIn
 } from 'react-icons/fa';
 import AuthContext from '../../context/AuthContext/AuthContext';
+import { RiVerifiedBadgeFill } from 'react-icons/ri';
 
 const Profile = () => {
   const { user } = useContext(AuthContext);
@@ -51,7 +52,7 @@ const Profile = () => {
                     {user?.displayName}
                   </h1>
                   <p>{user?.email}</p>
-                  <p className="text-gray-600">Product Designer</p>
+                  <p className="text-gray-600 flex gap-2 items-center"><span className='text-green-500'> <RiVerifiedBadgeFill /></span> Admin</p>
                   <p className="text-gray-600">{user?.role}</p>
                 </div>
                 <div className="flex gap-3">
@@ -87,8 +88,8 @@ const Profile = () => {
                   </div>
                   <div className="flex items-center text-gray-600">
                     <FiGlobe className="w-5 h-5 mr-3" />
-                    <a href="http://www.alexthompson.design" className="text-purple-600 hover:underline">
-                      www.alexthompson.design
+                    <a href="http://www.adminweb.com" className="text-purple-600 hover:underline">
+                      www.adminweb.com
                     </a>
                   </div>
                 </div>
