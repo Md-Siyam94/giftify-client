@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { IoMdHome } from 'react-icons/io';
 import logo from '../../src/assets/logo.png'
+import { BsCart2 } from 'react-icons/bs';
 
 const Navbar = () => {
 
@@ -44,7 +45,7 @@ const Navbar = () => {
           }
         >
           <div className="flex justify-center items-center gap-0.5">
-            <IoMdHome className="text-xl" />
+            <IoMdHome className="text-lg" />
             <h5>Home</h5>
           </div>
         </NavLink>
@@ -100,6 +101,45 @@ const Navbar = () => {
           </div>
         </NavLink>
       </li>
+
+
+      {/* cart below */}
+
+      {/* new code */}
+      {
+        user && <li>
+          <NavLink to=""
+            className={({ isActive }) =>
+              isActive ? "text-white btn-p" : "text-gray-700"
+            }
+          >
+            <div className="relative inline-block">
+              <BsCart2 className="text-base md:text-lg lg:text-2xl" />
+              <span
+                className="
+          absolute
+          -top-0.5
+          -right-1
+          bg-gray-200
+          text-black
+          text-[11px]
+          w-4
+          h-4
+          flex
+          items-center
+          justify-center
+          rounded-full
+        "
+              >
+                {/* {cart.length} */}
+                0
+              </span>
+            </div>
+          </NavLink>
+        </li>
+      }
+
+
     </>
   );
 
@@ -172,7 +212,7 @@ const Navbar = () => {
 
         <div className="navbar-end">
           <div className="navbar-center hidden lg:flex">
-            <ul className="menu menu-horizontal px-1 space-x-3">{links}</ul>
+            <ul className="menu menu-horizontal pl-1 pr-2.5 space-x-3">{links}</ul>
           </div>
           {user ? (
             <div className="flex justify-center items-center gap-3">
