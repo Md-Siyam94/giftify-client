@@ -17,7 +17,7 @@ const SignIn = () => {
     const onSubmit = async (data) => {
         signInUser(data.email, data.password)
             .then(result => {
-                // ✅ Login successful, so no failed count update needed
+                // Login successful, so no failed count update is needed
                 Swal.fire({
                     position: "center",
                     icon: "success",
@@ -31,7 +31,7 @@ const SignIn = () => {
             .catch(async error => {
                 console.log('Firebase Error:', error.message);
 
-                // ✅ Now that it's a Firebase login error, check with server
+                // Now it's a Firebase login error, so checking with server
                 try {
                     const res = await fetch('http://localhost:5000/auth/track-failed-login', {
                         method: 'POST',
