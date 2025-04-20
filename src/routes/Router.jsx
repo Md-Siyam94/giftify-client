@@ -18,6 +18,7 @@ import AddGifts from "../layouts/dashboardLayout/Pages/Admin/AddGifts/AddGifts";
 import PrivateRoute from "./PrivateRoute";
 import GiftGallery from "../layouts/withCommonLayout/pages/GiftGallery/GiftGallery";
 import AboutUs from "../layouts/withCommonLayout/pages/AboutUs/AboutUs";
+import Cart from "../layouts/withCommonLayout/pages/Cart/Cart";
 
 const router = createBrowserRouter([
   {
@@ -61,12 +62,16 @@ const router = createBrowserRouter([
         element: <PrivateRoute><GiftCatalog></GiftCatalog></PrivateRoute>,
       },
       {
+        path: "/cart",
+        element: <PrivateRoute><Cart></Cart></PrivateRoute>,
+      },
+      {
         path: "gift_gallery",
         element: <GiftGallery></GiftGallery>
       },
       {
-        path:"about_us",
-        element:<AboutUs></AboutUs>
+        path: "about_us",
+        element: <AboutUs></AboutUs>
       },
       {
         path: "signUp",

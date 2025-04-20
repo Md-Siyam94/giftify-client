@@ -16,7 +16,7 @@ const PrivateRoute = ({ children }) => {
     if (user && user?.email) {
       setTimeout(() => {
         setDataLoading(false);
-      }, 1000);
+      }, 500);
     } else {
       setDataLoading(false);
     }
