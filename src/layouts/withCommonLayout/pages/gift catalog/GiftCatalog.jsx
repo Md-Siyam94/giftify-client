@@ -70,7 +70,7 @@ const GiftCatalog = () => {
 
     return (
         <div className="container mx-auto p-6">
-            <div className="pt-6 pb-9 space-y-2.5">
+            <div className="pt-5 pb-8 space-y-2.5">
                 <h1 className="text-4xl font-bold text-center">Choose the Perfect Gift</h1>
                 <p className="text-center text-gray-600 mt-2">
                     Discover our collection of unique digital gifts, from e-gift cards to personalized experiences.

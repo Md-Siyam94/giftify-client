@@ -8,7 +8,7 @@ const SelectTheme = () => {
   const [message, setMessage] = useState("");
 
   return (
-    <div className="max-w-7xl mx-auto px-5 pb-10 pt-20">
+    <div className="max-w-7xl mx-auto px-5 pb-28 pt-0">
       <div className="pt-10 flex flex-col md:flex-row justify-between gap-5">
         <ChooseTheme
           setSelectedColor={setSelectedColor}

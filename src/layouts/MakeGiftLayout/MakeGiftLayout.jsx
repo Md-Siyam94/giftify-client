@@ -5,15 +5,15 @@ import { Outlet } from 'react-router-dom';
 const MakeGiftLayout = () => {
   return (
     <div>
-      <div className='category-top'>
-      <MakeGiftCategory></MakeGiftCategory>
+      <div className='category-top pt-5'>
+        <MakeGiftCategory></MakeGiftCategory>
       </div>
       <div className='dynamic-change-bottom flex'>
 
-      <Outlet></Outlet>
-      
+        <Outlet></Outlet>
+
       </div>
-      
+
     </div>
   );
 };
