@@ -135,9 +135,9 @@ const SignUp = () => {
                         {/* Already have an account? */}
                         <div className="text-center">
                             <div className="flex justify-center items-center gap-0.5 md:gap-1.5">
-                                <p className="text-gray-500 text-sm md:text-base font-medium">Already have an account?</p>
+                                <p className="text-gray-800 text-sm md:text-base">Already have an account?</p>
                                 <Link to="/signIn">
-                                    <h4 className="font-semibold text-sm md:text-base text-p">Sign in</h4>
+                                    <h4 className="font-medium text-sm md:text-base text-p hover:underline">Sign in</h4>
                                 </Link>
                             </div>
                         </div>
