@@ -157,8 +157,8 @@ const SignIn = () => {
                             </h5>
 
 
-                            <div className="form-control mt-6">
-                                <input className="btn btn-p w-full text-neutral-content" type="submit" value="Sign in" />
+                            <div className="form-control mt-5">
+                                <input className="btn btn-p w-full text-neutral-content" type="submit" value="Log in" />
                             </div>
                         </form>
 
@@ -167,9 +167,9 @@ const SignIn = () => {
                         {/* Already have an account? */}
                         <div className="text-center">
                             <div className="flex justify-center items-center gap-0.5 md:gap-1.5">
-                                <p className="text-gray-500 text-sm md:text-base font-medium">{`Don't have an account?`}</p>
+                                <p className="text-gray-800 text-sm md:text-base">{`Don't have an account?`}</p>
                                 <Link to="/signUp">
-                                    <h4 className="font-semibold text-sm md:text-base text-p">Sign up</h4>
+                                    <h4 className="font-medium text-sm md:text-base text-p hover:underline">Sign up</h4>
                                 </Link>
                             </div>
                         </div>

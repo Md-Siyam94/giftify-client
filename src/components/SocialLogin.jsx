@@ -3,6 +3,7 @@ import { FaGoogle } from "react-icons/fa";
 import Swal from "sweetalert2";
 import AuthContext from "../context/AuthContext/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { FcGoogle } from "react-icons/fc";
 
 
 
@@ -32,10 +33,11 @@ const SocialLogin = () => {
 
     return (
         <div className='my-3 text-center'>
-            {/* <div className="divider">OR</div> */}
+            {/* <div className="divider divider-neutral">OR</div> */}
+            <div className="divider">OR</div>
             <button onClick={handleGoogleSignIn} className='btn'>
-                <FaGoogle className="font-bold md:text-lg"></FaGoogle>
-                SignIn with Google</button>
+                <FcGoogle className="md:text-lg" />
+                Continue with Google</button>
         </div>
     );
 };
