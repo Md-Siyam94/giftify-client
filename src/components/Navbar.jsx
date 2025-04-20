@@ -107,7 +107,7 @@ const Navbar = () => {
       {/* new code */}
       {
         user && <li>
-          <NavLink to=""
+          <NavLink to="/cart"
             className={({ isActive }) =>
               isActive ? "text-white btn-p" : "text-gray-700/80"
             }
