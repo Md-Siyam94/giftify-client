@@ -17,6 +17,7 @@ import Analytics from "../layouts/dashboardLayout/Pages/Admin/Analytics/Analytic
 import AddGifts from "../layouts/dashboardLayout/Pages/Admin/AddGifts/AddGifts";
 import PrivateRoute from "./PrivateRoute";
 import GiftGallery from "../layouts/withCommonLayout/pages/GiftGallery/GiftGallery";
+import AboutUs from "../layouts/withCommonLayout/pages/AboutUs/AboutUs";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
       {
         path: "gift_gallery",
         element: <GiftGallery></GiftGallery>
+      },
+      {
+        path:"about_us",
+        element:<AboutUs></AboutUs>
       },
       {
         path: "signUp",
