@@ -151,7 +151,7 @@ const SignIn = () => {
                             {/* forgot password */}
                             <h5
                                 onClick={handleForgotPassword}
-                                className="text-sm text-p hover:underline text-center cursor-pointer mt-2 mb-[-8px]"
+                                className="text-sm text-gray-700 hover:underline text-center cursor-pointer mt-2 mb-[-8px]"
                             >
                                 Forgot password?
                             </h5>
