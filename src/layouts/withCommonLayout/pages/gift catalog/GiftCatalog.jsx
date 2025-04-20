@@ -128,7 +128,7 @@ const GiftCatalog = () => {
                         className={`tab ${selectedCategory === category ? "tab-active btn-p hover:text-white text-white" : ""}`}
                         onClick={() => handleCategoryChange(category)}
                     >
-                        {category}
+                        <h3 className={`${selectedCategory === category || "text-black/75"}`}>{category}</h3>
                     </button>
                 ))}
             </div>
