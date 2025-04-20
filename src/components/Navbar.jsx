@@ -104,13 +104,12 @@ const Navbar = () => {
 
 
       {/* cart below */}
-
       {/* new code */}
       {
         user && <li>
           <NavLink to=""
             className={({ isActive }) =>
-              isActive ? "text-white btn-p" : "text-gray-700"
+              isActive ? "text-white btn-p" : "text-gray-700/80"
             }
           >
             <div className="relative inline-block">
