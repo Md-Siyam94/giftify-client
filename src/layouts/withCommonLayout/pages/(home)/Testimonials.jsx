@@ -57,9 +57,9 @@ const Testimonials = () => {
   ];
 
   return (
-    <section className="py-24 px-4 ">
+    <section className="py-16 px-4 ">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-12">
+        <h2 className="md:text-3xl text-2xl font-semibold text-center mb-12">
           What Our Users Say
         </h2>
         <div ref={sliderRef} className="keen-slider">

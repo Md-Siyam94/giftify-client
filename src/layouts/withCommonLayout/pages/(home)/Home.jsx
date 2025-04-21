@@ -3,6 +3,7 @@ import Hero from '../(home)/Hero';
 import PropularCetegory from '../(home)/PropularCetegory';
 import TrendingGifts from '../(home)/TrendingGifts';
 import WhyChooseUs from '../(home)/WhyChooseUs';
+import FaqSection from '../../../../components/LoadingSpinner/FaqSection/FaqSection';
 import Testimonials from './Testimonials';
 const Home = () => {
     return (
@@ -23,6 +24,8 @@ const Home = () => {
           <section>
           <WhyChooseUs></WhyChooseUs>
           </section>
+          {/* Faq Section */}
+          <FaqSection></FaqSection>
         </div>
     );
 };

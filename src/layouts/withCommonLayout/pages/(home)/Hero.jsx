@@ -3,17 +3,17 @@ import BannerImage from "../../../../assets/gift-present-box-monochrome-stylish-
 const Hero = () => {
     return (
         <div
-  className="hero = min-h-screen"
+  className="hero  h-[320px] md:min-h-screen"
   style={{
     backgroundImage: `url(${BannerImage})`,
+    
   }}>
   <div className=" "></div>
   <div className="hero-content  text-center">
     <div className="max-w-md">
-      <h1 className="mb-5 text-5xl font-bold text-violet-600">Send Virtual Gifts <span className="">With Love</span></h1>
+      <h1 className="mb-5 md:text-5xl text-4xl font-bold text-violet-600">Send Virtual Gifts <span className="">With Love</span></h1>
       <p className="mb-5">
-        Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-        quasi. In deleniti eaque aut repudiandae et a id nisi.
+      Easily send heartfelt, custom virtual gifts to those who matter—anytime, from anywhere. Make every moment meaningful !
       </p>
       {/* <button className="btn btn-primary">Get Started</button> */}
     </div>

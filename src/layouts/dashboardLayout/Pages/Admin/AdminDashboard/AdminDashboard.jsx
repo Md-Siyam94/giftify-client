@@ -84,7 +84,7 @@ const AdminDashboard = () => {
                         </div>
                     </div>
                     <div>
-                        <button className="btn bg-purple-500 text-white"><FiGift /> Gifts </button>
+                        <button  onClick={() => setShowGiftModal(true)} className="btn bg-purple-500 text-white"><FiGift /> Gifts </button>
                     </div>
                 </div>
             </div>

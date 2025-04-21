@@ -19,6 +19,7 @@ import PrivateRoute from "./PrivateRoute";
 import GiftGallery from "../layouts/withCommonLayout/pages/GiftGallery/GiftGallery";
 import AboutUs from "../layouts/withCommonLayout/pages/AboutUs/AboutUs";
 import Cart from "../layouts/withCommonLayout/pages/Cart/Cart";
+import Error from "../layouts/withCommonLayout/Error/Error";
 
 const router = createBrowserRouter([
   {
@@ -107,6 +108,10 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path:'*',
+    element:<Error></Error>
+}
 ]);
 
 export default router;

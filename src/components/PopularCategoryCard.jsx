@@ -1,6 +1,6 @@
 
 
-const PopularCetegoryCard = ({ cetegory }) => {
+const PopularCategoryCard = ({ cetegory }) => {
   const { title, description, icon } = cetegory || {}
   return (
     <div className="card rounded-2xl bg-[#FAF5FF]  shadow-xl py-6">
@@ -16,4 +16,4 @@ const PopularCetegoryCard = ({ cetegory }) => {
   );
 };
 
-export default PopularCetegoryCard;
+export default PopularCategoryCard;
