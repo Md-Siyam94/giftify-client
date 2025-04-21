@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FaCartPlus, FaEye } from 'react-icons/fa';
 import Swal from 'sweetalert2';
+import useAxiosPublic from '../../../../hooks/useAxiosPublic';
+import AuthContext from '../../../../context/AuthContext/AuthContext';
+import useCart from '../../../../hooks/useCart';
 
 const GiftCatalogCard = ({ gift }) => {
 
     // console.log(gift.price);
+
+    const axiosPublic = useAxiosPublic();
+    const { user } = useContext(AuthContext);
+
+    const [, refetch] = useCart();
 
     const handleViewDetails = (gift) => {
         Swal.fire({
@@ -22,7 +30,55 @@ const GiftCatalogCard = ({ gift }) => {
                 </div>
             `,
             showCloseButton: true,
+            showConfirmButton: false,
         });
+    };
+
+
+    const handleAddToCart = (gift) => {
+        const { title, image, price, _id, category, description, rating } = gift;
+        if (user && user.email) {
+            const cartItem = {
+                giftId: _id,
+                email: user.email,
+                title,
+                image,
+                price,
+                category,
+                description,
+                rating
+            }
+            axiosPublic.post('/giftify/carts/create', cartItem)
+                .then(res => {
+                    if (res.data.success) {
+                        refetch();
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: `Added to your Cart`,
+                            showConfirmButton: false,
+                            timer: 1000
+                        });
+                        // refetch();
+                    }
+
+                })
+        }
+        else {
+            Swal.fire({
+                title: "You are not Logged In",
+                text: "Please login to add to the cart?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, login!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // navigate('/signIn', { state: { from: location } })
+                }
+            });
+        }
     };
 
 
@@ -78,7 +134,10 @@ const GiftCatalogCard = ({ gift }) => {
                             <div className="text-lg text-gray-700"><FaEye /></div>
                         </button>
 
-                        <div className="text-lg text-s cursor-pointer">
+                        <div
+                            className="text-lg text-s cursor-pointer"
+                            onClick={() => handleAddToCart(gift)}
+                        >
                             <FaCartPlus />
                         </div>
                     </div>

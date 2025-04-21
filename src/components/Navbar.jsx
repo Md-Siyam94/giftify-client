@@ -5,12 +5,13 @@ import Swal from 'sweetalert2';
 import { IoMdHome } from 'react-icons/io';
 import logo from '../../src/assets/logo.png'
 import { BsCart2 } from 'react-icons/bs';
+import useCart from '../hooks/useCart';
 
 const Navbar = () => {
 
   const { user, signOutUser } = useContext(AuthContext);
   const navigate = useNavigate();
-
+  const [cart] = useCart();
   const [profilePhoto, setProfilePhoto] = useState(null);
   const [userName, setUserName] = useState("");
 
@@ -130,8 +131,7 @@ const Navbar = () => {
           rounded-full
         "
               >
-                {/* {cart.length} */}
-                0
+                {cart.length}
               </span>
             </div>
           </NavLink>
