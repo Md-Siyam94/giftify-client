@@ -38,14 +38,14 @@ const stats = [
     id: 1,
     icon: <FaUsers className="text-blue-600 text-2xl" />,
     bgColor: "bg-blue-100",
-    value:userStats.totalUser || 0 ,
+    value:userStats?.totalUser || 0 ,
     label: "Total User",
     growth: `${userPercentage} %`,
   },{
     id: 2,
     icon: <FiGift className="text-purple-600 text-2xl" />,
     bgColor: "bg-purple-100",
-    value: giftStats.totalGift || 0,
+    value: giftStats?.totalGift || 0,
     label: " Total Gift",
     growth: "12%",
   },
@@ -66,7 +66,8 @@ const stats = [
     growth: "18%",
   },
 ];
-
+console.log("Gift stats is here", giftStats.totalGift)
+console.log("User stats is here", userStats?.totalUser)
 
   return (
     <div className="p-2 mt-4">

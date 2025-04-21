@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import PopularCetegoryCard from '../../../../components/PopularCetegoryCard';
+import PopularCetegoryCard from '../../../../components/PopularCategoryCard';
 
 const PropularCetegory = () => {
     const [popularCetegory, setPopularCetegoy] = useState([])
@@ -15,9 +15,9 @@ useEffect(()=>{
 
 
     return (
-        <div className='py-24  '>
-            <h2 className='text-3xl font-semibold text-center'>Popular Cetegories</h2>
-            <div className='grid grid-cols-1 md:grid-cols-3 gap-10 mt-10 '>
+        <div className='py-16 px-5 '>
+            <h2 className='md:text-3xl text-2xl font-semibold text-center'>Popular Cetegories</h2>
+            <div className='grid grid-cols-1 md:grid-cols-3 gap-10 mt-6 '>
                 {
                     popularCetegory.map(category=> <PopularCetegoryCard key={category?.id} cetegory={category}></PopularCetegoryCard>)
                 }

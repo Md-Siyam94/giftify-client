@@ -1,17 +1,26 @@
 import React from 'react';
+import Lottie from "lottie-react";
+import animationData from '../../../../lottie/gift open-down.json';
 
 const AboutUs = () => {
     return (
         <div className="bg-gradient-to-br from-[#ffe7f2] to-[#e0f7fa] min-h-screen text-gray-800">
             {/* Hero Section */}
-            <section className="text-center py-16 px-4 md:px-20 bg-white shadow-md ">
-                <h1 className="text-4xl md:text-5xl font-extrabold text-pink-600 drop-shadow-md animate-fade-in-up">
-                    Welcome to Giftify 🎁
-                </h1>
+            <section className="text-center py-16 px-4 md:px-20 bg-white shadow-md">
+                <div className="flex flex-col md:flex-row justify-center items-center gap-4">
+                    <h1 className="text-4xl md:text-5xl font-extrabold text-pink-600 drop-shadow-md animate-fade-in-up">
+                        Welcome to Giftify
+                    </h1>
+                    <div className="w-[80px] h-[80px]">
+                        <Lottie animationData={animationData} loop={true} autoplay={true} />
+                    </div>
+                </div>
+
                 <p className="mt-4 text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
                     Your one-stop virtual gift shop – delivering love instantly!
                 </p>
             </section>
+
 
 
             {/* Introduction Section */}
