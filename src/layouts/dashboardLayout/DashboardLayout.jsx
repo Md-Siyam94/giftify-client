@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { FaRegHeart, FaRegUserCircle } from "react-icons/fa";
+import { FaChevronLeft, FaRegHeart, FaRegUserCircle } from "react-icons/fa";
 import { FiGift } from "react-icons/fi";
 import { IoClose, IoMenu } from "react-icons/io5";
-import {  MdOutlineAnalytics, MdOutlineLibraryAdd, MdOutlineSettings, MdOutlineSpaceDashboard } from "react-icons/md";
-import { NavLink, Outlet } from "react-router-dom";
+import { MdOutlineAnalytics, MdOutlineLibraryAdd, MdOutlineSettings, MdOutlineSpaceDashboard } from "react-icons/md";
+import { Link, NavLink, Outlet } from "react-router-dom";
 
 const DashboardLayout = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,7 +19,7 @@ const DashboardLayout = () => {
               : "text-gray-700 hover:text-purple-500 pl-2 flex items-center gap-x-1.5"
           }
         >
-         <MdOutlineSpaceDashboard className="text-2xl" /> Dashboard
+          <MdOutlineSpaceDashboard className="text-2xl" /> Overview
         </NavLink>
       </li>
       {/* <li>
@@ -60,7 +60,7 @@ const DashboardLayout = () => {
       </li> */}
 
       {/* Admin links */}
-      
+
       <li>
         <NavLink
           to="/dashboard/analytics"
@@ -94,7 +94,7 @@ const DashboardLayout = () => {
               : "text-gray-700 hover:text-purple-500 pl-2 flex items-center gap-x-1.5"
           }
         >
-         <FaRegUserCircle className="text-2xl" /> Profile
+          <FaRegUserCircle className="text-2xl" /> Profile
           {/* <span className="ml-2 bg-purple-500 text-white text-xs px-2 py-1 rounded-full">3</span> */}
         </NavLink>
       </li>
@@ -119,6 +119,12 @@ const DashboardLayout = () => {
       <div className="hidden  md:block w-64 bg-white shadow-lg p-4 min-h-svh">
         <h2 className="text-xl font-bold text-purple-500 mb-4">Dashboard</h2>
         <ul className="space-y-4">{sideBarLinks}</ul>
+        <hr className="my-6 " />
+        <div className="border-2 border-purple-500 flex justify-center hover:bg-purple-400 text-purple-600 hover:text-white py-2 rounded-md">
+          <Link to="/" className="text-xl font-semibold flex items-center gap-2  ">
+            <FaChevronLeft /> Back to Home
+          </Link>
+        </div>
       </div>
 
       {/* Mobile Sidebar Drawer */}
