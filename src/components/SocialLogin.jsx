@@ -1,28 +1,40 @@
 import { useContext } from "react";
-import { FaGoogle } from "react-icons/fa";
 import Swal from "sweetalert2";
 import AuthContext from "../context/AuthContext/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
+import useAxiosPublic from "../hooks/useAxiosPublic";
 
 
 
 const SocialLogin = () => {
     const { signInWithGoogle } = useContext(AuthContext);
+    const axiosPublic=useAxiosPublic();
     const navigate = useNavigate();
+    const location=useLocation();
 
     const handleGoogleSignIn = () => {
         signInWithGoogle()
+
             .then(result => {
-                // console.log('Login successful: ', result.user.email);
-                Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    title: 'Google Login Successful',
-                    showConfirmButton: false,
-                    timer: 1000
-                });
-                navigate('/');
+                console.log('Login successful: ', result.user);
+                const userInfo={
+                    email:result.user?.email,
+                    name: result.user?.displayName
+                 
+                }
+                axiosPublic.post("/giftify/users/create", userInfo)
+                .then(res=>{
+                    console.log(res.data);
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: 'Google Login Successful',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                    navigate(location.state ? location.state : "/");
+                }) 
 
             })
             .catch(error => {

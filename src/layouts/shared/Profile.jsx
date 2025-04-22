@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { use, useContext, useState } from 'react';
 import {
   FiPhone,
   FiMail,
@@ -15,11 +15,65 @@ import {
   FaInstagram,
   FaLinkedinIn
 } from 'react-icons/fa';
-import AuthContext from '../../context/AuthContext/AuthContext';
 import { RiVerifiedBadgeFill } from 'react-icons/ri';
+import AuthContext from '../../context/AuthContext/AuthContext';
+import { useQuery } from '@tanstack/react-query';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
 
 const Profile = () => {
   const { user } = useContext(AuthContext);
+  const  axiosPublic=useAxiosPublic();
+  const [isEditing, setIsEditing] = useState(false);
+  const [formData, setFormData] = useState({
+    phone: '',
+    address: '',
+    website: ''
+  });
+
+  const { data: userInfo, refetch } = useQuery({
+    queryKey: ['user', user?.email],
+    queryFn: async () => {
+      const res = await axiosPublic.get(`/giftify/users/${user?.email}`);
+      setFormData({
+        phone: res.data?.phone || '',
+        address: res.data?.address || '',
+        website: res.data?.website || ''
+      });
+      return res.data;
+    },
+    enabled: !!user?.email
+  });
+
+  const handleNativeShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: 'Check out my profile!',
+        text: 'View this awesome profile on Giftyfy',
+        url: window.location.href,
+      }).then(() => {
+        console.log('Shared successfully');
+      }).catch(err => {
+        console.error('Error sharing:', err);
+      });
+    } else {
+      alert('Sharing is not supported in this browser.');
+    }
+  };
+
+  const handleInputChange = e => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSave = async (id) => {
+    try {
+      await axiosPublic.patch(`/giftify/users/update/${id}`, formData);
+      setIsEditing(false);
+      refetch();
+    } catch (err) {
+      console.error('Update failed:', err);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -30,14 +84,12 @@ const Profile = () => {
         </button>
       </div>
 
-      {/* Profile Section */}
       <div className="container mx-auto px-4 -mt-16">
         <div className="bg-white rounded-lg shadow-lg p-6">
-          {/* Profile Header */}
           <div className="flex flex-col md:flex-row items-start gap-6 mb-8">
             <div className="relative">
               <img
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=256&q=80"
+                src={user?.photoURL}
                 alt="User Profile"
                 className="w-32 h-32 rounded-lg border-4 border-white shadow-lg"
               />
@@ -52,80 +104,135 @@ const Profile = () => {
                     {user?.displayName}
                   </h1>
                   <p>{user?.email}</p>
-                  <p className="text-gray-600 flex gap-2 items-center"><span className='text-green-500'> <RiVerifiedBadgeFill /></span> Admin</p>
+                  <p className="text-gray-600 flex gap-2 items-center">
+                    <span className='text-green-500'><RiVerifiedBadgeFill /></span> Admin
+                  </p>
                   <p className="text-gray-600">{user?.role}</p>
                 </div>
                 <div className="flex gap-3">
-                  <button className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
-                    Edit Profile
-                  </button>
-                  <button className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
-                    Share Profile
-                  </button>
+                  {isEditing ? (
+                    <>
+                      <button
+                        onClick={()=>handleSave(userInfo._id)}
+                        className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                      >
+                        Save
+                      </button>
+                      <button
+                        onClick={() => setIsEditing(false)}
+                        className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                      >
+                        Cancel
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        onClick={() => setIsEditing(true)}
+                        className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+                      >
+                        Edit Profile
+                      </button>
+                      <button
+                        onClick={handleNativeShare}
+                        className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                      >
+                        Share Profile
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Main Content */}
           <div className="grid md:grid-cols-3 gap-8">
             {/* Left Column - Basic Info */}
             <div className="md:col-span-1 space-y-8">
               <div>
                 <h2 className="text-lg font-semibold text-gray-900 mb-4">Basic Information</h2>
-                <div className="space-y-4">
-                  <div className="flex items-center text-gray-600">
+                <div className="space-y-4 text-gray-600">
+                  <div className="flex items-center">
                     <FiMail className="w-5 h-5 mr-3" />
                     <span>{user?.email}</span>
                   </div>
-                  <div className="flex items-center text-gray-600">
+                  <div className="flex items-center">
                     <FiPhone className="w-5 h-5 mr-3" />
-                    <span>+1 (555) 123-4567</span>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        name="phone"
+                        value={formData.phone || ''}
+                        onChange={handleInputChange}
+                        className="border rounded px-2 py-1 w-full"
+                        placeholder="+880--3823...345"
+                      />
+                    ) : (
+                      userInfo?.phone ? (
+                        <span>{userInfo.phone}</span>
+                      ) : (
+                        <span className="text-gray-300">+880--3823...345</span>
+                      )
+                    )}
                   </div>
-                  <div className="flex items-center text-gray-600">
+                  <div className="flex items-center">
                     <FiMapPin className="w-5 h-5 mr-3" />
-                    <span>San Francisco, CA</span>
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        name="address"
+                        value={formData.address || ''}
+                        onChange={handleInputChange}
+                        className="border rounded px-2 py-1 w-full"
+                        placeholder="Enter your address"
+                      />
+                    ) : (
+                      userInfo?.address ? (
+                        <span>{userInfo.address}</span>
+                      ) : (
+                        <span className="text-gray-300">No address added</span>
+                      )
+                    )}
                   </div>
-                  <div className="flex items-center text-gray-600">
-                    <FiGlobe className="w-5 h-5 mr-3" />
-                    <a href="http://www.adminweb.com" className="text-purple-600 hover:underline">
-                      www.adminweb.com
-                    </a>
-                  </div>
-                </div>
-              </div>
 
-              <div>
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">Social Profiles</h2>
-                <div className="grid grid-cols-2 gap-3">
-                  <button className="flex items-center justify-center p-2 border border-gray-200 rounded-lg hover:bg-gray-50">
-                    <FaFacebookF className="w-5 h-5 text-blue-600" />
-                    <span className="ml-2">Facebook</span>
-                  </button>
-                  <button className="flex items-center justify-center p-2 border border-gray-200 rounded-lg hover:bg-gray-50">
-                    <FaTwitter className="w-5 h-5 text-blue-400" />
-                    <span className="ml-2">Twitter</span>
-                  </button>
-                  <button className="flex items-center justify-center p-2 border border-gray-200 rounded-lg hover:bg-gray-50">
-                    <FaInstagram className="w-5 h-5 text-pink-600" />
-                    <span className="ml-2">Instagram</span>
-                  </button>
-                  <button className="flex items-center justify-center p-2 border border-gray-200 rounded-lg hover:bg-gray-50">
-                    <FaLinkedinIn className="w-5 h-5 text-blue-700" />
-                    <span className="ml-2">LinkedIn</span>
-                  </button>
+                  <div className="flex items-center">
+                    <FiGlobe className="w-5 h-5 mr-3" />
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        name="website"
+                        value={formData.website || ''}
+                        onChange={handleInputChange}
+                        className="border rounded px-2 py-1 w-full"
+                        placeholder="https://yourwebsite.com"
+                      />
+                    ) : userInfo?.website ? (
+                      <a
+                        href={userInfo.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:underline"
+                      >
+                        {userInfo.website}
+                      </a>
+                    ) : (
+                      <span className="text-gray-300">No website link</span>
+                    )}
+                  </div>
+
                 </div>
               </div>
+              {/* ~~~~~TODO: Social profiles can also be added if needed */}
             </div>
 
             {/* Right Column - About Me & Activity */}
             <div className="md:col-span-2 space-y-8">
               <div>
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">About Me</h2>
+                <h2 className="text-lg font-semibold text-gray-900 mb-4">My Activity</h2>
+                {/* <h2 className="text-lg font-semibold text-gray-900 mb-4">About Me</h2>
                 <p className="text-gray-600">
                   Passionate about creating meaningful digital experiences. Love sending virtual gifts that make people smile.
-                </p>
-
+                </p> */}
                 <div className="grid grid-cols-3 gap-6 mt-8">
                   <div className="text-center">
                     <div className="text-2xl font-bold text-purple-600">248</div>
@@ -141,48 +248,10 @@ const Profile = () => {
                   </div>
                 </div>
               </div>
-
-              <div>
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">Recent Activity</h2>
-                <div className="space-y-4">
-                  <div className="flex items-center p-4 bg-gray-50 rounded-lg">
-                    <div className="p-2 bg-purple-100 rounded-lg">
-                      <FiGift className="w-5 h-5 text-purple-600" />
-                    </div>
-                    <div className="ml-4">
-                      <p className="font-medium text-gray-900">Gift Sent</p>
-                      <p className="text-sm text-gray-600">Birthday Animation to Sarah Johnson</p>
-                    </div>
-                    <span className="ml-auto text-sm text-gray-500">Just now</span>
-                  </div>
-
-                  <div className="flex items-center p-4 bg-gray-50 rounded-lg">
-                    <div className="p-2 bg-blue-100 rounded-lg">
-                      <FiCamera className="w-5 h-5 text-blue-600" />
-                    </div>
-                    <div className="ml-4">
-                      <p className="font-medium text-gray-900">Profile Updated</p>
-                      <p className="text-sm text-gray-600">Changed profile picture</p>
-                    </div>
-                    <span className="ml-auto text-sm text-gray-500">1 day ago</span>
-                  </div>
-
-                  <div className="flex items-center p-4 bg-gray-50 rounded-lg">
-                    <div className="p-2 bg-green-100 rounded-lg">
-                      <FiCreditCard className="w-5 h-5 text-green-600" />
-                    </div>
-                    <div className="ml-4">
-                      <p className="font-medium text-gray-900">New Payment Method</p>
-                      <p className="text-sm text-gray-600">Added new credit card</p>
-                    </div>
-                    <span className="ml-auto text-sm text-gray-500">3 days ago</span>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
-      </div> 
+      </div>
     </div>
   );
 };
