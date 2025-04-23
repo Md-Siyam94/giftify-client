@@ -145,10 +145,22 @@ const Navbar = () => {
   const dropdownLinks = (
     <>
       <li>
-        <a className="justify-between">
-          {userName}
-          <span className="badge btn-s">active</span>
-        </a>
+
+        <NavLink
+          to="/dashboard/profile"
+          className={({ isActive }) =>
+            isActive ? "text-white btn-p" : "text-gray-700"
+          }
+        >
+          <div className="flex justify-center gap-3 items-center">
+            <h5>
+              {userName}
+            </h5>
+            <p className="badge btn-s">active</p>
+          </div>
+        </NavLink>
+
+
       </li>
       <li>
         <NavLink
