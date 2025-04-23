@@ -20,6 +20,9 @@ import GiftGallery from "../layouts/withCommonLayout/pages/GiftGallery/GiftGalle
 import AboutUs from "../layouts/withCommonLayout/pages/AboutUs/AboutUs";
 import Cart from "../layouts/withCommonLayout/pages/Cart/Cart";
 import Error from "../layouts/withCommonLayout/Error/Error";
+import UserDashboard from "../layouts/dashboardLayout/Pages/User/UserDashboard/UserDashboard";
+import Orders from "../layouts/dashboardLayout/Pages/User/Orders/Orders";
+import Support from "../layouts/dashboardLayout/Pages/User/Support/Support";
 
 const router = createBrowserRouter([
   {
@@ -94,6 +97,7 @@ const router = createBrowserRouter([
         path: "/dashboard/profile",
         element: <Profile></Profile>,
       },
+      // Admin Routes
       {
         path: "/dashboard/admin_dashboard",
         element: <AdminDashboard></AdminDashboard>,
@@ -106,6 +110,19 @@ const router = createBrowserRouter([
         path: "/dashboard/add_gifts",
         element: <AddGifts></AddGifts>,
       },
+      // User Routes
+      {
+        path:'user_dashboard',
+        element:<UserDashboard></UserDashboard>
+      },
+      {
+        path:'orders',
+        element:<Orders></Orders>
+      },
+      {
+        path:'support',
+        element:<Support></Support>
+      }
     ],
   },
   {

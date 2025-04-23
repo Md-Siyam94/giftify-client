@@ -5,14 +5,14 @@ import { FaArrowLeft } from "react-icons/fa";
 
 const Error = () => {
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-white dark:bg-gray-900 text-center p-6">
-            <div className="w-72 sm:w-96 mb-6">
+        <div className="flex flex-col items-center justify-center min-h-screen bg-white dark:bg-gray-900 text-center py-3 px-6">
+            <div className="w-72  mb-2">
                 <Lottie animationData={animationData} loop={true} autoplay={true} />
             </div>
             <h3 className="text-3xl sm:text-4xl font-bold text-gray-800 dark:text-white mb-2">
                 Oops! Page Not Found
             </h3>
-            <p className="text-gray-600 dark:text-gray-300 mb-6 text-lg">
+            <p className="text-gray-600 dark:text-gray-300 mb-4 text-lg">
                 The page you are looking for doesn't exist or has been moved.
             </p>
             <NavLink

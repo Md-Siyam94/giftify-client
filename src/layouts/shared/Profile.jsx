@@ -20,6 +20,7 @@ import AuthContext from '../../context/AuthContext/AuthContext';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 import useUser from '../../hooks/useUser';
+import Swal from 'sweetalert2';
 
 const Profile = () => {
   const { user } = useContext(AuthContext);
@@ -71,9 +72,23 @@ const Profile = () => {
 
   const handleSave = async (id) => {
     try {
-      await axiosPublic.patch(`/giftify/users/update/${id}`, formData);
-      setIsEditing(false);
-      refetch();
+      await axiosPublic.patch(`/giftify/users/update/${id}`, formData)
+      .then(res=>{
+        console.log(res.data)
+        if(res.data.success){
+          Swal.fire({
+            position: "top-center",
+            icon: "success",
+            title: "Update Profile Successfull",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          
+        }
+        setIsEditing(false);
+          refetch();
+      })
+     
     } catch (err) {
       console.error('Update failed:', err);
     }
@@ -109,9 +124,8 @@ const Profile = () => {
                   </h1>
                   <p>{user?.email}</p>
                   <p className="text-gray-600 flex gap-2 items-center">
-                    <span className='text-green-500'><RiVerifiedBadgeFill /></span>{userInformation.role}
+                    <span className='text-green-500'><RiVerifiedBadgeFill /></span>{userInformation?.role}
                   </p>
-                  <p className="text-gray-600">{user?.role}</p>
                 </div>
                 <div className="flex gap-3">
                   {isEditing ? (
