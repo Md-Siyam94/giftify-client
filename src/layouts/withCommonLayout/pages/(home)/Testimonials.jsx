@@ -57,12 +57,12 @@ const Testimonials = () => {
   ];
 
   return (
-    <section className="py-24 px-4 ">
+    <section className="py-24  bg-[#222222]">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-12">
+        <h2 className="text-3xl md:text-4xl lg:text-4xl text-white font-semibold text-center ">
           What Our Users Say
         </h2>
-        <div ref={sliderRef} className="keen-slider">
+        <div ref={sliderRef} className="keen-slider mt-16">
           {testimonials.map((testimonial, index) => (
             <div
               key={index}

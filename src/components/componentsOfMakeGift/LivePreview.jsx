@@ -16,7 +16,7 @@ const LivePreview = ({ selectedColor, recipientName, message }) => {
 
       {/* Preview Image with Dynamic Background */}
       <div
-        className="w-full relative rounded-lg overflow-hidden border flex justify-center items-center"
+        className=" w-full relative rounded-lg overflow-hidden border flex justify-center items-center "
         style={{ backgroundColor: selectedColor }}
       >
         <img
