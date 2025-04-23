@@ -6,12 +6,18 @@ import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import Swal from "sweetalert2";
 import SocialLogin from "../../../../components/SocialLogin";
 import { useState } from "react";
+import useAxiosPublic from "../../../../hooks/useAxiosPublic";
+
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 
 
 const SignUp = () => {
+    const axiosPublic = useAxiosPublic();
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
-    const { createUser, updateUserProfile } = useContext(AuthContext);
+    const { createUser, updateUserProfile, signOutUser } = useContext(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
@@ -23,36 +29,63 @@ const SignUp = () => {
 
     const onSubmit = async (data) => {
 
+        const imageFile = new FormData();
+        imageFile.append("image", data.image[0]);
 
-        createUser(data.email, data.password)
-            .then(result => {
-                // console.log(result.user);
-                updateUserProfile({ displayName: data.name })
-                    .then(() => {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: 'Sign Up successful.',
-                            showConfirmButton: false,
-                            timer: 1000
-                        });
-                        reset();
-
-                        navigate(location.state ? location.state : "/");
-
-                    })
-                    .catch(error => console.log(error))
-            })
+        const imageRes = await axiosPublic.post(image_hosting_api, imageFile, {
+            headers: { "content-type": "multipart/form-data" },
+        });
 
 
+        if (imageRes.data.success) {
+
+            createUser(data.email, data.password)
+                .then(result => {
+                    const loggedUser = result.user;
+                    // console.log(loggedUser);
+                    updateUserProfile({ displayName: data.name, photoURL: imageRes.data.data.display_url })
+                        .then(() => {
+                            // creating user entry in the database
+                            const userInfo = {
+                                name: data.name,
+                                email: data.email,
+                                role: data.role,
+                                image: imageRes.data.data.display_url
+                            }
+                            axiosPublic.post('/giftify/users/create', userInfo)
+                                .then(res => {
+                                    if (res.data.success) {
+                                        console.log('user added to the database');
+
+                                        signOutUser()
+                                            .then(() => {
+                                                // console.log('user signOut successful');
+                                                Swal.fire({
+                                                    title: 'Sign Up Successful',
+                                                    text: 'Now please Login to Continue',
+                                                    icon: 'success',
+                                                    confirmButtonText: 'ok'
+                                                });
+                                                reset();
+                                                navigate('/signIn');
+                                            })
+                                            .catch(error => console.log('ERROR', error.message))
+
+                                    }
+                                })
 
 
-        // console.log(data.email);
-        // console.log(data.name);
-        // console.log(data.password);
+                        })
+                        .catch(error => console.log(error))
+                })
+
+
+        }
 
 
     };
+
+
 
 
     return (
@@ -75,7 +108,7 @@ const SignUp = () => {
                                 <label className="label">
                                     <span className="label-text">Full Name</span>
                                 </label>
-                                <input type="text"  {...register("name", { required: true })} name="name" placeholder="Name" className="input input-bordered" />
+                                <input type="text"  {...register("name", { required: true })} name="name" placeholder="name" className="input input-bordered" />
                                 {errors.name && <span className="text-red-600">Name is required</span>}
                             </div>
 
@@ -89,8 +122,21 @@ const SignUp = () => {
                                 {errors.email && <span className="text-red-600">Email is required</span>}
                             </div>
 
+                            {/* Image Upload */}
+                            <div className="form-control my-2.5">
+                                <label className="label">
+                                    <span className="label-text">Upload Image*</span>
+                                </label>
+                                <input
+                                    {...register("image", { required: "Image is required" })}
+                                    type="file"
+                                    className="file-input w-full max-w-xs"
+                                />
+                                {errors.image && <p className="text-red-500">{errors.image.message}</p>}
+                            </div>
+
                             {/* Select Role */}
-                            {/* <div className="form-control">
+                            <div className="form-control">
                                 <label className="label">
                                     <span className="label-text text-gray-700">Select Role</span>
                                 </label>
@@ -102,7 +148,7 @@ const SignUp = () => {
                                     <option value="seller">Seller</option>
                                 </select>
                                 {errors.role && <span className="text-red-600">{errors.role.message}</span>}
-                            </div> */}
+                            </div>
 
 
                             <div className="form-control relative">

@@ -9,32 +9,35 @@ import useAxiosPublic from "../hooks/useAxiosPublic";
 
 const SocialLogin = () => {
     const { signInWithGoogle } = useContext(AuthContext);
-    const axiosPublic=useAxiosPublic();
+    const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
-    const location=useLocation();
+    const location = useLocation();
 
     const handleGoogleSignIn = () => {
         signInWithGoogle()
 
             .then(result => {
                 console.log('Login successful: ', result.user);
-                const userInfo={
-                    email:result.user?.email,
-                    name: result.user?.displayName
-                 
+                const userInfo = {
+                    name: result.user?.displayName,
+                    email: result.user?.email,
+                    role: 'user',
+                    image: result.user?.photoURL
+
                 }
                 axiosPublic.post("/giftify/users/create", userInfo)
-                .then(res=>{
-                    console.log(res.data);
-                    Swal.fire({
-                        position: "center",
-                        icon: "success",
-                        title: 'Google Login Successful',
-                        showConfirmButton: false,
-                        timer: 1000
-                    });
-                    navigate(location.state ? location.state : "/");
-                }) 
+                    .then(res => {
+                        console.log(res.data);
+                        console.log('user created in db');
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: 'Google Login Successful',
+                            showConfirmButton: false,
+                            timer: 1000
+                        });
+                        navigate(location.state ? location.state : "/");
+                    })
 
             })
             .catch(error => {

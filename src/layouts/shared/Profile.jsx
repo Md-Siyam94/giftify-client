@@ -19,10 +19,14 @@ import { RiVerifiedBadgeFill } from 'react-icons/ri';
 import AuthContext from '../../context/AuthContext/AuthContext';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
+import useUser from '../../hooks/useUser';
 
 const Profile = () => {
   const { user } = useContext(AuthContext);
-  const  axiosPublic=useAxiosPublic();
+  const axiosPublic = useAxiosPublic();
+
+  const [userInformation] = useUser();
+
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     phone: '',
@@ -105,7 +109,7 @@ const Profile = () => {
                   </h1>
                   <p>{user?.email}</p>
                   <p className="text-gray-600 flex gap-2 items-center">
-                    <span className='text-green-500'><RiVerifiedBadgeFill /></span> Admin
+                    <span className='text-green-500'><RiVerifiedBadgeFill /></span>{userInformation.role}
                   </p>
                   <p className="text-gray-600">{user?.role}</p>
                 </div>
@@ -113,7 +117,7 @@ const Profile = () => {
                   {isEditing ? (
                     <>
                       <button
-                        onClick={()=>handleSave(userInfo._id)}
+                        onClick={() => handleSave(userInfo._id)}
                         className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
                       >
                         Save

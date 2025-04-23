@@ -84,7 +84,7 @@ const AdminDashboard = () => {
                         </div>
                     </div>
                     <div>
-                        <button  onClick={() => setShowGiftModal(true)} className="btn bg-purple-500 text-white"><FiGift /> Gifts </button>
+                        <button onClick={() => setShowGiftModal(true)} className="btn bg-purple-500 text-white"><FiGift /> Gifts </button>
                     </div>
                 </div>
             </div>
@@ -112,38 +112,38 @@ const AdminDashboard = () => {
                         </div>
 
                         <div className="space-y-4">
-                        {latestGifts.map((l_gift) => (
-                    <div key={l_gift._id} className="flex items-center justify-between group cursor-pointer hover:bg-gray-50 -mx-2 px-2 py-1 rounded-lg">
-                        <div className="flex items-center gap-3">
-                            <div className="w-12 h-12 bg-gray-100 rounded-lg overflow-hidden">
-                                <img
-                                    src={l_gift.image}
-                                    alt={l_gift.title}
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
-                            <div>
-                                <h3 className="font-medium text-gray-800">{l_gift.title}</h3>
-                                <p className="text-sm text-gray-500">{l_gift.category}</p>
-                            </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <div className="text-right">
-                                <p className="text-sm text-gray-600">
-                                    {new Date(l_gift.createdAt).toLocaleDateString("en-US", {
-                                        year: "numeric",
-                                        month: "long",
-                                        day: "numeric",
-                                    })}
-                                </p>
-                                <p className="text-sm text-green-500">Delivered</p>
-                            </div>
-                            <button className="p-1 hover:bg-gray-100 rounded-full">
-                                <MdKeyboardArrowRight className="w-4 h-4 text-gray-400" />
-                            </button>
-                        </div>
-                    </div>
-                ))}
+                            {latestGifts.map((l_gift) => (
+                                <div key={l_gift._id} className="flex items-center justify-between group cursor-pointer hover:bg-gray-50 -mx-2 px-2 py-1 rounded-lg">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-12 h-12 bg-gray-100 rounded-lg overflow-hidden">
+                                            <img
+                                                src={l_gift.image}
+                                                alt={l_gift.title}
+                                                className="w-full h-full object-cover"
+                                            />
+                                        </div>
+                                        <div>
+                                            <h3 className="font-medium text-gray-800">{l_gift.title}</h3>
+                                            <p className="text-sm text-gray-500">{l_gift.category}</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <div className="text-right">
+                                            <p className="text-sm text-gray-600">
+                                                {new Date(l_gift.createdAt).toLocaleDateString("en-US", {
+                                                    year: "numeric",
+                                                    month: "long",
+                                                    day: "numeric",
+                                                })}
+                                            </p>
+                                            <p className="text-sm text-green-500">Delivered</p>
+                                        </div>
+                                        <button className="p-1 hover:bg-gray-100 rounded-full">
+                                            <MdKeyboardArrowRight className="w-4 h-4 text-gray-400" />
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
 
@@ -205,7 +205,7 @@ const AdminDashboard = () => {
                 </div>
             </div>
 
-    {/* ~~~~~~All User Showing Modal  */}
+            {/* ~~~~~~All User Showing Modal  */}
             {showUserModal && (
                 <dialog id="user_modal" className="modal modal-open p-4">
                     <div className="modal-box max-w-4xl w-full">
@@ -218,6 +218,7 @@ const AdminDashboard = () => {
                                         <th>Avatar</th>
                                         <th>Name</th>
                                         <th>Email</th>
+                                        <th>Role</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -237,6 +238,7 @@ const AdminDashboard = () => {
                                             </td>
                                             <td>{user.name || 'Unknown'}</td>
                                             <td>{user.email}</td>
+                                            <td>{user.role}</td>
                                             <td>
                                                 <button onClick={() => handleUserDelete(user._id)} className="btn btn-sm btn-error text-white">
                                                     Delete
@@ -258,7 +260,7 @@ const AdminDashboard = () => {
                     </div>
                 </dialog>
             )}
- {/*~~~~~~~~ All Gift Showing Modal  */}
+            {/*~~~~~~~~ All Gift Showing Modal  */}
             {showGiftModal && (
                 <dialog id="gift_modal" className="modal modal-open px-4 py-6">
                     <div className="modal-box max-w-4xl w-full">
