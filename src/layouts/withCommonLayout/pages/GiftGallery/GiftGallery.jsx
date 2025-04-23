@@ -1,6 +1,8 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
+import useAxiosPublic from '../../../../hooks/useAxiosPublic';
 
 const giftImages = [
   {
@@ -39,6 +41,19 @@ const GiftGallery = () => {
   const [open, setOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  // below codes added by Hafiz
+  const axiosPublic = useAxiosPublic();
+
+  const { data: gifts = [], isLoading, isError } = useQuery({
+    queryKey: ['gifts'],
+    queryFn: async () => {
+      const res = await axiosPublic.get('/giftify/gifts');
+      return res.data;
+    }
+  });
+  // above codes added by Hafiz
+
+
   const handleImageClick = (index) => {
     setCurrentIndex(index);
     setOpen(true);
@@ -50,21 +65,21 @@ const GiftGallery = () => {
         <h1 className="text-2xl md:text-3xl font-bold">Gift Gallery</h1>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 my-10">
-        {giftImages.map((image, index) => (
+        {gifts.map((image, index) => (
           <div
-            key={index}
+            key={image._id}
             className="relative cursor-pointer"
             onClick={() => handleImageClick(index)}
           >
             <img
-              src={image.src}
+              src={image.image}
               alt={image.title}
               className="w-full h-[320px] object-cover rounded-lg shadow-lg skeleton"
             />
             <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 hover:opacity-100 flex flex-col justify-center items-center text-white rounded-lg transition-opacity duration-300 text-center px-3">
               <p className="text-lg font-semibold">{image.title}</p>
               <p className="text-sm py-2">{image.description}</p>
-              <p className="text-md font-semibold">{image.user}</p>
+              {/* <p className="text-md font-semibold">{image.user}</p> */}
             </div>
           </div>
         ))}
@@ -73,7 +88,7 @@ const GiftGallery = () => {
         <Lightbox
           open={open}
           close={() => setOpen(false)}
-          slides={giftImages.map((img) => ({ src: img.src, alt: img.title }))}
+          slides={gifts.map((img) => ({ src: img.image, alt: img.title }))}
           index={currentIndex}
         />
       )}
