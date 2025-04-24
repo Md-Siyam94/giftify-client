@@ -7,7 +7,7 @@ const axiosPublic = axios.create({
 })
 
 
-const useAxiosPublic = () => {   
+const useAxiosPublic = () => {
     return axiosPublic;
 };
 

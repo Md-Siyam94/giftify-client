@@ -98,9 +98,18 @@ const Cart = () => {
                 <div className="flex justify-evenly mb-6 pt-8 pb-5 items-center">
                     <h2 className="text-4xl">Ordered Gift: {cart.length}</h2>
                     <h2 className="text-4xl">Total Price: ${totalPrice.toFixed(2)}</h2>
-                    <button className="btn primary-btn btn-lg" disabled={!cart.length}>
-                        Checkout
-                    </button>
+
+                    {cart.length ? <Link to="/dashboard/payment">
+                        <button className="btn btn-lg">
+                            Checkout
+                        </button>
+                    </Link> :
+                        <button disabled className="btn btn-lg">
+                            Checkout
+                        </button>
+                    }
+
+
                 </div>
 
                 <div className="mb-8 ml-24">
