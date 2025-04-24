@@ -148,7 +148,7 @@ const Cart = () => {
                                             </div>
                                         </div>
                                     </td>
-                                    <td>{item.name}</td>
+                                    <td>{item.title}</td>
                                     <td>1</td>
                                     <td>${item.price}</td>
                                     <td className="py-3 px-4">
