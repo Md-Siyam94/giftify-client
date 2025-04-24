@@ -23,6 +23,7 @@ import Error from "../layouts/withCommonLayout/Error/Error";
 import UserDashboard from "../layouts/dashboardLayout/Pages/User/UserDashboard/UserDashboard";
 import Orders from "../layouts/dashboardLayout/Pages/User/Orders/Orders";
 import Support from "../layouts/dashboardLayout/Pages/User/Support/Support";
+import Payment from "../layouts/dashboardLayout/Pages/Payment/Payment";
 
 const router = createBrowserRouter([
   {
@@ -112,23 +113,27 @@ const router = createBrowserRouter([
       },
       // User Routes
       {
-        path:'user_dashboard',
-        element:<UserDashboard></UserDashboard>
+        path: 'user_dashboard',
+        element: <UserDashboard></UserDashboard>
       },
       {
-        path:'orders',
-        element:<Orders></Orders>
+        path: 'orders',
+        element: <Orders></Orders>
       },
       {
-        path:'support',
-        element:<Support></Support>
+        path: 'support',
+        element: <Support></Support>
+      },
+      {
+        path: 'payment',
+        element: <Payment></Payment>
       }
     ],
   },
   {
-    path:'*',
-    element:<Error></Error>
-}
+    path: '*',
+    element: <Error></Error>
+  }
 ]);
 
 export default router;
