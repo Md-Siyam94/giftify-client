@@ -13,7 +13,7 @@ const DashboardLayout = () => {
   // console.log(userRole);
 
   const renderSideLinks = () => {
-    if (userInformation.role === " admin") {
+    if (userInformation.role ==="admin") {
       return (
         <>
           <li>
@@ -72,18 +72,21 @@ const DashboardLayout = () => {
 
       return (
         <>
+        {
+          userInformation.role ==="user" && 
           <li>
-            <NavLink
-              to="/dashboard/user_dashboard"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-purple-500 font-semibold border-l-4 border-purple-500 pl-2 flex items-center gap-x-1.5"
-                  : "text-gray-700 hover:text-purple-500 pl-2 flex items-center gap-x-1.5"
-              }
-            >
-              <MdOutlineSpaceDashboard className="text-2xl" /> Overview
-            </NavLink>
-          </li>
+          <NavLink
+            to="/dashboard/user_dashboard"
+            className={({ isActive }) =>
+              isActive
+                ? "text-purple-500 font-semibold border-l-4 border-purple-500 pl-2 flex items-center gap-x-1.5"
+                : "text-gray-700 hover:text-purple-500 pl-2 flex items-center gap-x-1.5"
+            }
+          >
+            <MdOutlineSpaceDashboard className="text-2xl" /> Overview
+          </NavLink>
+        </li>
+        }
           <li>
             <NavLink
               to="/dashboard/orders"
