@@ -6,6 +6,7 @@ import { IoMdHome } from 'react-icons/io';
 import logo from '../../src/assets/logo.png'
 import { BsCart2 } from 'react-icons/bs';
 import useCart from '../hooks/useCart';
+import useUser from '../hooks/useUser';
 
 const Navbar = () => {
 
@@ -14,6 +15,7 @@ const Navbar = () => {
   const [cart] = useCart();
   const [profilePhoto, setProfilePhoto] = useState(null);
   const [userName, setUserName] = useState("");
+    const [userInformation] = useUser();
 
   useEffect(() => {
     if (user) {
@@ -159,19 +161,32 @@ const Navbar = () => {
             <p className="badge btn-s">active</p>
           </div>
         </NavLink>
-
-
       </li>
-      <li>
-        <NavLink
-          to="/dashboard/admin_dashboard"
-          className={({ isActive }) =>
-            isActive ? "text-white btn-p" : "text-gray-700"
-          }
-        >
-          <h5>Dashboard</h5>
-        </NavLink>
-      </li>
+      { userInformation.role == 'admin' && (
+           <li>
+           <NavLink
+             to="/dashboard/admin_dashboard"
+             className={({ isActive }) =>
+               isActive ? "text-white btn-p" : "text-gray-700"
+             }
+           >
+             <h5>Dashboard</h5>
+           </NavLink>
+         </li>
+      )}
+      { userInformation.role == 'user' && (
+           <li>
+           <NavLink
+             to="/dashboard/user_dashboard"
+             className={({ isActive }) =>
+               isActive ? "text-white btn-p" : "text-gray-700"
+             }
+           >
+             <h5>Dashboard</h5>
+           </NavLink>
+         </li>
+      )}
+   
 
       <li>
         <a onClick={handleLogOut}>Logout</a>
