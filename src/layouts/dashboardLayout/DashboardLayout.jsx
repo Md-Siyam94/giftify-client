@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FaChevronLeft, FaRegHeart, FaRegUserCircle } from "react-icons/fa";
 import { IoClose, IoMenu } from "react-icons/io5";
-import { MdOutlineAnalytics, MdOutlineLibraryAdd,  MdOutlineSpaceDashboard, MdSupportAgent } from "react-icons/md";
+import { MdOutlineAnalytics, MdOutlineLibraryAdd,  MdOutlineSpaceDashboard, MdPayment, MdSupportAgent } from "react-icons/md";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import useUser from "../../hooks/useUser";
 import { BiPurchaseTagAlt } from "react-icons/bi";
@@ -94,6 +94,18 @@ const DashboardLayout = () => {
               }
             >
               <BiPurchaseTagAlt className="text-2xl" /> Orders
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/dashboard/payment"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-purple-500 font-semibold border-l-4 border-purple-500 pl-2 flex items-center gap-x-1.5"
+                  : "text-gray-700 hover:text-purple-500 pl-2 flex items-center gap-x-1.5"
+              }
+            >
+              <MdPayment className="text-2xl" /> Payment
             </NavLink>
           </li>
           <li>
