@@ -78,45 +78,42 @@ const CheckoutForm = () => {
             if (paymentIntent.status === 'succeeded') {
                 console.log('transaction id', paymentIntent.id);
                 setTransactionId(paymentIntent.id);
-                Swal.fire({
-                    position: "top",
-                    icon: "success",
-                    title: "Payment Successful",
-                    // showConfirmButton: false,
-                    // timer: 1000
-                });
 
 
-                // TODO
-                // // saving the payment in the database
-                // const payment = {
-                //     email: user.email,
-                //     price: totalPrice,
-                //     transactionId: paymentIntent.id,
-                //     date: new Date(), // utc date convert. use moment js to 
-                //     cartIds: cart.map(item => item._id),
-                //     medicineIds: cart.map(item => item.medicineId),
-                //     status: 'pending'
-                // }
+                // saving the payment in the database
+                const payment = {
 
-                // const res = await axiosPublic.post('/payments', payment);
-                // // console.log('payment saved', res.data);
+                    email: user.email,
+                    price: totalPrice,
+                    transactionId: paymentIntent.id,
+                    date: new Date(),   // TODO --use momentJS to convert into utc date
+                    cartIds: cart.map(item => item._id),
+                    giftIds: cart.map(item => item.medicineId),
+                    status: 'pending'
+                }
+
+                const res = await axiosPublic.post('/giftify/payments/create', payment);
+                // console.log('payment saved', res.data);
+                console.log('payment saved in db', res);
                 refetch();
-                // if (res.data?.paymentResult?.insertedId) {
-                //     Swal.fire({
-                //         position: "top",
-                //         icon: "success",
-                //         title: "payment successful",
-                //         showConfirmButton: false,
-                //         timer: 1500
-                //     });
-                //     navigate('/invoice');
-                // }
+
+                if (res.data?.success) {
+                    Swal.fire({
+                        position: "top",
+                        icon: "success",
+                        title: "Payment Successful",
+                        // showConfirmButton: false,
+                        // timer: 1000
+                    });
+                    navigate('/invoice');
+                }
 
             }
         }
 
     }
+
+
 
     return (
         <>
@@ -139,11 +136,16 @@ const CheckoutForm = () => {
                             },
                         }}
                     />
-                    <button className="btn btn-wide btn-outline my-6" type="submit" disabled={!stripe || !clientSecret}>
+                    <button className="btn btn-wide btn-outline my-6" type="submit" disabled={!stripe || !clientSecret || !totalPrice}>
                         Pay
                     </button>
                     <p className="text-red-600 text-lg">{error}</p>
-                    {transactionId && <p className="text-s text-xl"> Your transaction id: {transactionId}</p>}
+                    {transactionId && (
+                        <p className="text-lg font-medium text-neutral">
+                            <span className="font-semibold text-gray-700/95 underline">Transaction ID: </span> {transactionId}
+                        </p>
+                    )}
+
                 </form>
             </div>
         </>

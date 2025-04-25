@@ -24,6 +24,7 @@ import UserDashboard from "../layouts/dashboardLayout/Pages/User/UserDashboard/U
 import Orders from "../layouts/dashboardLayout/Pages/User/Orders/Orders";
 import Support from "../layouts/dashboardLayout/Pages/User/Support/Support";
 import Payment from "../layouts/dashboardLayout/Pages/Payment/Payment";
+import InvoicePage from "../layouts/dashboardLayout/InvoicePage";
 
 const router = createBrowserRouter([
   {
@@ -126,9 +127,13 @@ const router = createBrowserRouter([
       },
       {
         path: 'payment',
-        element: <Payment></Payment>
-      }
+        element: <PrivateRoute><Payment></Payment></PrivateRoute>
+      },
     ],
+  },
+  {
+    path: 'invoice',
+    element: <PrivateRoute><InvoicePage></InvoicePage></PrivateRoute>,
   },
   {
     path: '*',
