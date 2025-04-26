@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
 import useAxiosPublic from '../../../../hooks/useAxiosPublic';
+import { motion } from "motion/react"
 
 const giftImages = [
   {
@@ -66,22 +67,35 @@ const GiftGallery = () => {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 my-10">
         {gifts.map((image, index) => (
-          <div
-            key={image._id}
-            className="relative cursor-pointer"
-            onClick={() => handleImageClick(index)}
-          >
-            <img
-              src={image.image}
-              alt={image.title}
-              className="w-full h-[320px] object-cover rounded-lg shadow-lg skeleton"
-            />
-            <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 hover:opacity-100 flex flex-col justify-center items-center text-white rounded-lg transition-opacity duration-300 text-center px-3">
-              <p className="text-lg font-semibold">{image.title}</p>
-              <p className="text-sm py-2">{image.description}</p>
-              {/* <p className="text-md font-semibold">{image.user}</p> */}
-            </div>
+          <motion.div
+          key={image._id}
+          className="relative cursor-pointer overflow-hidden rounded-lg shadow-lg"
+          onClick={() => handleImageClick(index)}
+          whileHover={{
+            scale: 1.05,
+            x: 10,    
+            rotate: -2,
+            
+          }}
+          whileTap={{
+            scale: 0.98,
+          }}
+          transition={{
+            type: "spring",
+            stiffness: 200,
+            damping: 15,
+          }}
+        >
+          <img
+            src={image.image}
+            alt={image.title}
+            className="w-full h-[320px] object-cover rounded-lg"
+          />
+          <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 hover:opacity-100 flex flex-col justify-center items-center text-white rounded-lg transition-opacity duration-300 text-center px-3">
+            <p className="text-lg font-semibold">{image.title}</p>
+            <p className="text-sm py-2">{image.description}</p>
           </div>
+        </motion.div>
         ))}
       </div>
       {open && (

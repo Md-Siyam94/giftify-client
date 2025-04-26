@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion"; // Correct Import
+import { motion } from "framer-motion"; 
 
 const TrendingGifts = () => {
   const gifts = [
@@ -40,14 +40,13 @@ const TrendingGifts = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {gifts.map((gift) => (
             <motion.div
-              key={gift.id}
-              initial={{ opacity: 0, scale: 0 }} // Initial State
-              animate={{ opacity: 1, scale: 1 }} // Animate State
-              transition={{
-                duration: 0.4,
-                scale: { type: "spring", bounce: 0.5 },
-              }}
-              className="bg-white rounded-2xl shadow-lg overflow-hidden"
+            initial={{ opacity: 0, x: -100 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            viewport={{ once: false, amount: 0.5 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.7 }}
+            className="bg-white rounded-2xl shadow-lg overflow-hidden"
             >
               <img
                 src={gift.image}
