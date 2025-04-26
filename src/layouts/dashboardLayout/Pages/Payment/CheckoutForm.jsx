@@ -79,6 +79,9 @@ const CheckoutForm = () => {
                 console.log('transaction id', paymentIntent.id);
                 setTransactionId(paymentIntent.id);
 
+                // Clearing the CardElement input after a successful payment
+                card.clear();  // This resets the card entry form
+
 
                 // saving the payment in the database
                 const payment = {
