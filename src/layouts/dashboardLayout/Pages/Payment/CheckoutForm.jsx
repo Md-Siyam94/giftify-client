@@ -102,10 +102,22 @@ const CheckoutForm = () => {
                         position: "top",
                         icon: "success",
                         title: "Payment Successful",
-                        // showConfirmButton: false,
-                        // timer: 1000
-                    });
-                    navigate('/invoice');
+                        showConfirmButton: true,
+                        confirmButtonText: "View Invoice"
+                    })
+                        .then((result) => {
+                            // only if user confirmed
+                            if (result.isConfirmed) {
+                                // building the absolute URL
+                                const invoiceUrl = `${window.location.origin}/invoice`;
+                                // opening the invoice in a new tab
+                                window.open(
+                                    invoiceUrl,
+                                    "_blank",
+                                    "noopener,noreferrer"
+                                );
+                            }
+                        });
                 }
 
             }

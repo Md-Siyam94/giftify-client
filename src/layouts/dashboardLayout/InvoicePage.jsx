@@ -1,11 +1,9 @@
+// src/components/InvoicePage.js
 import { useContext } from "react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import AuthContext from "../../context/AuthContext/AuthContext";
 import { useQuery } from "@tanstack/react-query";
 import logo from "../../assets/logo.png";
-import Swal from "sweetalert2";
-
-
 
 const InvoicePage = () => {
     const { user } = useContext(AuthContext);
@@ -20,21 +18,28 @@ const InvoicePage = () => {
     });
 
 
+    // Defining a print handler that opens the browser's Print dialog
+    const handlePrint = () => {
+        window.print();   // Calls browser print (→ PDF)
+    };
+
+
 
     return (
         <>
-
             <div className="flex flex-col items-center justify-center min-h-screen bg-base-200 px-4 pt-4 pb-20">
-
                 <h2 className="text-4xl font-bold my-3">Invoice</h2>
 
+                {/* This is the only section that will actually be printed */}
                 <div id="invoice" className="w-full max-w-3xl bg-white shadow-xl rounded-lg p-8">
                     {payments.map((payment) => (
                         <div key={payment._id}>
                             <div className="flex justify-between items-center border-b pb-4 mb-6">
                                 <img src={logo} alt="Website Logo" className="h-16" />
                                 <div className="text-right">
-                                    <p className="text-sm text-gray-900">Transaction ID: {payment.transactionId}</p>
+                                    <p className="text-sm text-gray-900">
+                                        Transaction ID: {payment.transactionId}
+                                    </p>
                                 </div>
                             </div>
 
@@ -59,7 +64,7 @@ const InvoicePage = () => {
                                     Transaction Date: {new Date(payment.date).toLocaleString()}
                                 </p>
                                 <p className="text-sm text-gray-600">Total Price: ${payment.price}</p>
-                                <p className="text-sm text-s">
+                                <p className="text-sm text-gray-600">
                                     Payment Received successfully
                                 </p>
                             </div>
@@ -69,16 +74,15 @@ const InvoicePage = () => {
                                 <p>Thank you for your purchase!</p>
                                 <p>Giftify Company Limited | https://giftify-pro.netlify.app/</p>
                             </div>
-                            {/* <div className="divider divider-secondary"></div> */}
                             <br />
                             <hr />
                         </div>
                     ))}
                 </div>
 
-                {/* Print Button */}
+                {/* Wiring the button to print handler */}
                 <button
-                    // onClick={handlePrint}
+                    onClick={handlePrint}
                     className="mt-6 btn btn-neutral"
                 >
                     Download PDF

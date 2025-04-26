@@ -3,6 +3,49 @@
 @tailwind utilities;
 
 
+
+/* for invoice pdf printing only */
+/* ───────────────────────────────────────────────────────────────────── */
+/* Only show the invoice div when printing, hide everything else */
+@media print {
+
+    /* Hide all elements on the page */
+    body * {
+        visibility: hidden;
+        /* 🆕 Hide */
+    }
+
+    /* Make #invoice and its children visible */
+    #invoice,
+    #invoice * {
+        visibility: visible;
+        /* 🆕 Show invoice */
+    }
+
+    /* Position the invoice at the top-left of the printed page */
+    #invoice {
+        position: absolute;
+        /* 🆕 Remove original flow */
+        top: 0;
+        /* 🆕 Align top */
+        left: 0;
+        /* 🆕 Align left */
+        width: 100%;
+        /* 🆕 Full width */
+    }
+
+    /* Hide any buttons (so "Download PDF" button won’t appear) */
+    button {
+        display: none !important;
+        /* 🆕 Ensures no print button */
+    }
+}
+
+/* ───────────────────────────────────────────────────────────────────── */
+
+
+
+
 .btn-p {
     background-color: #9333EA;
 }
