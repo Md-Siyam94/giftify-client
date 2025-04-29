@@ -24,7 +24,7 @@ const GiftCatalogCard = ({ gift }) => {
 
             // ── Styled details below the image ──
             html: `
-      <div class="p-2.5 space-y-2.5 text-left">
+      <div class="space-y-2.5 text-left">
         <!-- Price -->
         <div class="text-3xl font-bold text-p">
           $${gift.price}
@@ -66,7 +66,7 @@ const GiftCatalogCard = ({ gift }) => {
                 image: 'rounded-xl',
                 // now this will stick:
                 confirmButton: 'bg-[#9333EA] hover:bg-[#7A22D1] text-white font-medium py-1 px-3 rounded',
-                closeButton:   'pl-3 pb-3',
+                closeButton: 'pl-3 pb-3',
             },
 
             // 1) Mark preConfirm async so you can use await inside it
