@@ -19,7 +19,11 @@ const CheckoutForm = () => {
     const [cart, refetch] = useCart();
     const navigate = useNavigate();
 
-    const totalPrice = cart.reduce((total, item) => total + item.price, 0)
+    // Total price now uses item.quantity directly
+    const totalPrice = cart.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+    );
 
     useEffect(() => {
         if (totalPrice > 0) {
@@ -151,7 +155,7 @@ const CheckoutForm = () => {
                             },
                         }}
                     />
-                    <button className="btn btn-wide btn-outline my-6" type="submit" disabled={!stripe || !clientSecret || !totalPrice}>
+                    <button className="btn bg-[#af59ff] hover:bg-[#9c39ff] text-white my-6 btn-wide" type="submit" disabled={!stripe || !clientSecret || !totalPrice}>
                         Pay
                     </button>
                     <p className="text-red-600 text-lg">{error}</p>
