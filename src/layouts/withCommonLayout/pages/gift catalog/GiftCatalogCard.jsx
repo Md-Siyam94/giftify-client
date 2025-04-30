@@ -65,7 +65,7 @@ const GiftCatalogCard = ({ gift }) => {
                 popup: 'rounded-lg max-w-md',
                 image: 'rounded-xl',
                 // now this will stick:
-                confirmButton: 'bg-[#9333EA] hover:bg-[#7A22D1] text-white font-medium py-1 px-3 rounded',
+                confirmButton: 'btn bg-[#9333EA] hover:bg-[#7A22D1] text-white',
                 closeButton: 'pl-3 pb-3',
             },
 
@@ -83,6 +83,7 @@ const GiftCatalogCard = ({ gift }) => {
                         category,
                         description,
                         rating,
+                        quantity: 1
                     };
 
                     // 3) Await the API call
@@ -129,7 +130,8 @@ const GiftCatalogCard = ({ gift }) => {
                 price,
                 category,
                 description,
-                rating
+                rating,
+                quantity: 1
             }
             axiosPublic.post('/giftify/carts/create', cartItem)
                 .then(res => {

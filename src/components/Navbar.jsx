@@ -15,7 +15,7 @@ const Navbar = () => {
   const [cart] = useCart();
   const [profilePhoto, setProfilePhoto] = useState(null);
   const [userName, setUserName] = useState("");
-    const [userInformation] = useUser();
+  const [userInformation] = useUser();
 
   useEffect(() => {
     if (user) {
@@ -122,7 +122,7 @@ const Navbar = () => {
           absolute
           -top-0.5
           -right-1
-          bg-gray-200
+          bg-gray-100
           text-black
           text-[11px]
           w-4
@@ -162,31 +162,31 @@ const Navbar = () => {
           </div>
         </NavLink>
       </li>
-      { userInformation.role == 'admin' && (
-           <li>
-           <NavLink
-             to="/dashboard/admin_dashboard"
-             className={({ isActive }) =>
-               isActive ? "text-white btn-p" : "text-gray-700"
-             }
-           >
-             <h5>Dashboard</h5>
-           </NavLink>
-         </li>
+      {userInformation.role == 'admin' && (
+        <li>
+          <NavLink
+            to="/dashboard/admin_dashboard"
+            className={({ isActive }) =>
+              isActive ? "text-white btn-p" : "text-gray-700"
+            }
+          >
+            <h5>Dashboard</h5>
+          </NavLink>
+        </li>
       )}
-      { userInformation.role == 'user' && (
-           <li>
-           <NavLink
-             to="/dashboard/user_dashboard"
-             className={({ isActive }) =>
-               isActive ? "text-white btn-p" : "text-gray-700"
-             }
-           >
-             <h5>Dashboard</h5>
-           </NavLink>
-         </li>
+      {userInformation.role == 'user' && (
+        <li>
+          <NavLink
+            to="/dashboard/user_dashboard"
+            className={({ isActive }) =>
+              isActive ? "text-white btn-p" : "text-gray-700"
+            }
+          >
+            <h5>Dashboard</h5>
+          </NavLink>
+        </li>
       )}
-   
+
 
       <li>
         <a onClick={handleLogOut}>Logout</a>
