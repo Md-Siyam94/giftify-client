@@ -164,7 +164,7 @@ const TrendingGifts = () => {
                 <p className="text-gray-600 text-sm">{gift.description}</p>
                 <div className="mt-2 flex justify-between items-center">
                   <span className="text-lg font-bold text-purple-600">
-                    $ {gift.price}
+                    ${gift.price}
                   </span>
                   <button className="btn btn-sm bg-[#9333EA] hover:bg-[#7A22D1] text-white"
                     onClick={() => handleViewDetails(gift)}
