@@ -15,6 +15,7 @@ const AdminDashboard = () => {
     const { user } = useContext(AuthContext);
     const axiosPublic = useAxiosPublic();
     const [latestGifts, setLatestGifts] = useState([]);
+    const [allGifts, setAllGifts] = useState([]);
     const [showUserModal, setShowUserModal] = useState(false);
     const [showGiftModal, setShowGiftModal] = useState(false);
 
@@ -24,6 +25,8 @@ const AdminDashboard = () => {
                 const sorted = res.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
                 const latest = sorted.slice(0, 4); // latest 4 gifts
                 setLatestGifts(latest);
+                setAllGifts(res.data)
+                console.log(res.data)
             })
             .catch(err => console.error("Failed to fetch gifts", err));
     }, []);
@@ -39,6 +42,13 @@ const AdminDashboard = () => {
         queryKey: ['all-gifts'],
         queryFn: async () => {
             const res = await axiosPublic.get('/giftify/gifts');
+            return res.data;
+        },
+    });
+    const { data: recentUsers = [] } = useQuery({
+        queryKey: ['latest-users'],
+        queryFn: async () => {
+            const res = await axiosPublic.get('/giftify/users/latest-users');
             return res.data;
         },
     });
@@ -162,43 +172,32 @@ const AdminDashboard = () => {
                         </div>
 
                         <div className="space-y-4">
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-12 h-12 bg-cyan-100 rounded-lg overflow-hidden">
-                                        <img
-                                            src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=48&h=48&fit=crop"
-                                            alt="David"
-                                            className="w-full h-full object-cover"
-                                        />
+                            {recentUsers.map(user => (
+                                <div key={user._id} className="flex items-center justify-between">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-12 h-12 bg-gray-100 rounded-lg overflow-hidden">
+                                            {user.image ? (
+                                                <img
+                                                    src={user?.image}
+                                                    alt={user?.name}
+                                                    className="w-full h-full object-cover"
+                                                />
+                                            ) : (
+                                                <FaUserAlt className="text-gray-500 w-full h-full object-cover" />
+                                            )}
+                                        </div>
+                                        <div>
+                                            <h3 className="font-medium text-gray-800">{user?.name || 'No Name'}</h3>
+                                            <p className="text-sm text-gray-500">{user?.email}</p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <h3 className="font-medium text-gray-800">David Johnson</h3>
-                                        <p className="text-sm text-gray-500">davidjohnson4545@gmail.com</p>
-                                    </div>
+                                    <button className="p-1 hover:bg-gray-100 rounded-full">
+                                        <MdKeyboardArrowRight className="w-4 h-4 text-gray-400" />
+                                    </button>
                                 </div>
-                                <button className="p-1 hover:bg-gray-100 rounded-full">
-                                    <MdKeyboardArrowRight className="w-4 h-4 text-gray-400" />
-                                </button>
-                            </div>
+                            ))}
 
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-12 h-12 bg-rose-100 rounded-lg overflow-hidden">
-                                        <img
-                                            src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=48&h=48&fit=crop"
-                                            alt="Lisa"
-                                            className="w-full h-full object-cover"
-                                        />
-                                    </div>
-                                    <div>
-                                        <h3 className="font-medium text-gray-800">Lisa Anderson</h3>
-                                        <p className="text-sm text-gray-500">anderson555lisa@gmail.com</p>
-                                    </div>
-                                </div>
-                                <button className="p-1 hover:bg-gray-100 rounded-full">
-                                    <MdKeyboardArrowRight className="w-4 h-4 text-gray-400" />
-                                </button>
-                            </div>
+
                         </div>
                     </div>
 
@@ -229,7 +228,7 @@ const AdminDashboard = () => {
                                                 {user.image ? (
                                                     <div className="avatar">
                                                         <div className="w-8 rounded-full">
-                                                            <img src={user.image} alt="avatar" />
+                                                            <img src={user.image} alt={user.name} />
                                                         </div>
                                                     </div>
                                                 ) : (
@@ -278,15 +277,15 @@ const AdminDashboard = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {gifts?.map((gift) => (
+                                    {allGifts?.map((gift) => (
                                         <tr key={gift._id}>
                                             <td>
                                                 <div className="flex items-center gap-3">
                                                     <div className="avatar">
                                                         <div className="mask mask-squircle h-12 w-12">
                                                             <img
-                                                                src="https://images.unsplash.com/photo-1513151233558-d860c5398176?w=48&h=48&fit=crop"
-                                                                alt="Avatar Tailwind CSS Component" />
+                                                                src={gift.image}
+                                                                alt={gift.title} />
                                                         </div>
                                                     </div>
                                                     {gift.title || 'N/A'}
@@ -294,7 +293,7 @@ const AdminDashboard = () => {
                                             </td>
                                             <td>{gift.description || 'N/A'}</td>
                                             <td>{gift.price ? `$${gift.price}` : 'N/A'}</td>
-                                            <td>{gift.cetegory || 'N/A'}</td>
+                                            <td>{gift.category || 'N/A'}</td>
                                             <td>
                                                 <button onClick={() => handleGiftDelete(gift._id)} className="btn btn-sm btn-error text-white">
                                                     Delete

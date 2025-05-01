@@ -8,7 +8,7 @@ const AboutUs = () => {
             {/* Hero Section */}
             <section className="text-center py-16 px-4 md:px-20 bg-white shadow-md">
                 <div className="flex flex-col md:flex-row justify-center items-center gap-4">
-                    <h1 className="text-4xl md:text-5xl font-extrabold text-pink-600 drop-shadow-md animate-fade-in-up">
+                    <h1 className="text-4xl md:text-5xl font-extrabold text-p  drop-shadow-md animate-fade-in-up">
                         Welcome to Giftify
                     </h1>
                     <div className="w-[80px] h-[80px]">
@@ -25,7 +25,7 @@ const AboutUs = () => {
 
             {/* Introduction Section */}
             <section className="py-16 px-4 md:px-20 space-y-8">
-                <h2 className="text-3xl font-bold text-center text-[#1a1a1a] mb-12">Who We Are</h2>
+                <h2 className="text-3xl font-bold text-center text-p  mb-12">Who We Are</h2>
                 <div className="md:flex items-center justify-between gap-12">
                     {/* Text Content */}
                     <p className="text-lg leading-relaxed max-w-xl text-gray-700 mx-auto md:mx-0 md:text-left">
@@ -48,7 +48,7 @@ const AboutUs = () => {
 
             {/* Audience Section */}
             <section className="bg-pink-50 py-16 px-4 md:px-20">
-                <h2 className="text-3xl font-bold text-center text-pink-700 mb-10">Who It's For</h2>
+                <h2 className="text-3xl font-bold text-center text-p  mb-10">Who It's For</h2>
                 <div className="grid md:grid-cols-3 gap-8 text-center">
                     {[
                         {
@@ -73,7 +73,7 @@ const AboutUs = () => {
                                 alt={audience.title}
                                 className="w-16 h-16  mx-auto mb-4 object-cover"
                             />
-                            <h3 className="font-semibold text-xl text-pink-600">{audience.title}</h3>
+                            <h3 className="font-semibold text-xl text-p ">{audience.title}</h3>
                             <p className="mt-2 text-gray-600">{audience.desc}</p>
                         </div>
                     ))}
@@ -120,7 +120,7 @@ const AboutUs = () => {
                                 alt={feature.title}
                                 className="w-10 h-10 object-contain"
                             />
-                            <h3 className="font-semibold text-lg text-pink-500">{feature.title}</h3>
+                            <h3 className="font-semibold text-lg text-p ">{feature.title}</h3>
                         </div>
                     ))}
                 </div>
@@ -129,7 +129,7 @@ const AboutUs = () => {
 
             {/* Mission Section */}
             <section className="bg-[#fff0f5] py-16 px-4 md:px-20 text-center rounded-t-3xl">
-                <h2 className="text-3xl font-bold text-pink-700">Our Mission</h2>
+                <h2 className="text-3xl font-bold text-p ">Our Mission</h2>
                 <p className="mt-4 text-lg max-w-3xl mx-auto text-gray-700">
                     We aim to revolutionize how people celebrate and share joy. Giftify makes digital gifting easy,
                     elegant, and emotionally meaningful.

@@ -72,7 +72,6 @@ const AuthProvider = ({ children }) => {
             }else{
                 // TODO: Token Removed(if token stored in client side:Local storage)
                 localStorage.removeItem('access-token')
-
             }
             
             setLoading(false);
@@ -83,7 +82,7 @@ const AuthProvider = ({ children }) => {
             unSubscribe();
         }
 
-    }, [])
+    }, [ axiosPublic])
 
 
 
