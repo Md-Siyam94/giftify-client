@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from "framer-motion"; 
+import { motion } from "framer-motion";
 
 const WhyChooseUs = () => {
     const features = [
@@ -24,11 +24,11 @@ const WhyChooseUs = () => {
     ];
 
     return (
-        <div className="py-16 px-5 container mx-auto">
-            <h2 className="md:text-3xl text-2xl font-semibold text-center mb-6">Why Choose Us</h2>
+        <div className="mt-14 md:mt-16 lg:mt-32 mb-0 lg:mb-16 mx-3">
+            <h2 className="md:text-4xl text-2xl font-semibold text-center mb-5 md:mb-7 lg:mb-9">Why Choose Us</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 text-center">
                 {features.map((feature, index) => (
-                    <motion.div 
+                    <motion.div
                         key={feature.id}
                         initial={{ opacity: 0, scale: 0.8 }}
                         whileInView={{ opacity: 1, scale: 1 }}

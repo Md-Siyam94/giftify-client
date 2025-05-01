@@ -58,46 +58,68 @@ const Testimonials = () => {
   ];
 
   return (
-    <section className="py-16 px-4 ">
-      <div className="max-w-6xl mx-auto">
-        <motion.h2 
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6,  delay: 0.2}}
-        viewport={{ once: false, amount: 0.4 }}
-        className="md:text-3xl text-2xl font-semibold text-center mb-12">
+    <section className="mx-3">
+      <div className="mt-14 md:mt-16 lg:mt-36 mb-0 lg:mb-16">
+        <motion.h2
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: false, amount: 0.4 }}
+          className="text-2xl sm:text-3xl md:text-4xl font-semibold text-center mb-3 md:mb-7 lg:mb-9"
+        >
           What Our Users Say
         </motion.h2>
+
         <div ref={sliderRef} className="keen-slider">
           {testimonials.map((testimonial, index) => (
             <div
-           
               key={index}
-              className="keen-slider__slide bg-white border border-gray-300 p-10 rounded-xl shadow-sm"
+              className="
+              keen-slider__slide
+              bg-white border border-gray-300
+              p-6 sm:p-8 lg:p-10       /* responsive padding */
+              rounded-xl shadow-sm
+            "
             >
               <motion.div
-               initial={{ opacity: 0, y: 50 }}
-               whileInView={{ opacity: 1, y: 0 }}
-               transition={{ duration: 0.6, delay: index * 0.2 }}
-               viewport={{ once: false, amount: 0.4 }}
-               className="flex items-center mb-4">
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                viewport={{ once: false, amount: 0.4 }}
+                className="flex items-center mb-4"
+              >
                 <img
                   src={testimonial.image}
                   alt={testimonial.name}
-                  className="w-12 h-12 rounded-full mr-4"
+                  className="
+                  w-10 h-10              /* mobile size */
+                  sm:w-12 sm:h-12        /* tablet+ size */
+                  rounded-full
+                  mr-3 sm:mr-4           /* responsive margin */
+                "
                 />
                 <div>
-                  <h4 className="font-semibold">{testimonial.name}</h4>
-                  <p className="text-gray-600 text-sm">{testimonial.role}</p>
+                  <h4 className="font-semibold text-base sm:text-lg">
+                    {testimonial.name}
+                  </h4>
+                  <p className="text-gray-600 text-xs sm:text-sm">
+                    {testimonial.role}
+                  </p>
                 </div>
               </motion.div>
+
               <motion.p
-               initial={{ opacity: 0, x: -100 }}
-               whileInView={{ opacity: 1, x: 0 }}
-               transition={{ duration: 0.8, ease: "easeOut" }}
-               viewport={{ once: true, amount: 0.5 }}
-              
-              className="text-gray-600 italic">"{testimonial.quote}"</motion.p>
+                initial={{ opacity: 0, x: -100 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                viewport={{ once: true, amount: 0.5 }}
+                className="
+                text-gray-600 italic
+                text-sm sm:text-base     /* responsive font-size */
+              "
+              >
+                "{testimonial.quote}"
+              </motion.p>
             </div>
           ))}
         </div>

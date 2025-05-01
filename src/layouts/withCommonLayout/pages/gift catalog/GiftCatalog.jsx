@@ -122,7 +122,7 @@ const GiftCatalog = () => {
 
             {/* Category Tabs */}
             <div className="tabs tabs-boxed flex justify-center mb-9">
-                {["All Gifts", "E-Gift Cards", "Animated Greetings", "Virtual Experiences"].map((category) => (
+                {["All Gifts", "E-Gift Cards", "Animated Greetings", "Virtual Experiences", "Physical Gifts"].map((category) => (
                     <button
                         key={category}
                         className={`tab ${selectedCategory === category ? "tab-active btn-p hover:text-white text-white" : ""}`}

@@ -108,9 +108,10 @@ const AddGifts = () => {
                         {...register("category", { required: "Category is required" })}
                     >
                         <option value="">Select Category</option>
-                        <option value="Virtual Experiences">Virtual Experiences </option>
+                        <option value="Virtual Experiences">Virtual Experiences</option>
                         <option value="Animated Greetings">Animated Greetings</option>
                         <option value="E-Gift Cards">E-Gift Cards</option>
+                        <option value="Physical Gifts">Physical Gifts</option>
                     </select>
                     {errors.category && <span className="text-red-600 text-xs">{errors.category.message}</span>}
                 </div>
