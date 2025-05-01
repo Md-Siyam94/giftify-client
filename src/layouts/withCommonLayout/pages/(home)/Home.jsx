@@ -15,10 +15,10 @@ const Home = () => {
                 <PropularCetegory></PropularCetegory>
             </section>
             {/*Trending gifts section  */}
-            <section className='max-w-screen-xl mx-auto'>
+            <section id="trending" className='max-w-screen-xl mx-auto'>
                 <TrendingGifts></TrendingGifts>
             </section>
-            {/* Testimonails Section */}
+            {/* Testimonials Section */}
             <section className='max-w-screen-xl mx-auto'>
                 <Testimonials></Testimonials>
             </section>
