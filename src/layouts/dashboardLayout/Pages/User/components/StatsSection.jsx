@@ -23,6 +23,17 @@ const { data: giftStats = {} } = useQuery({
     return res.data;
   }
 });
+// Total earning Fetching data
+const { data: earningsStats = {} } = useQuery({
+  queryKey: ['total-earnings'],
+  queryFn: async () => {
+    const res = await axiosPublic.get('/giftify/payments/total-earnings');
+    console.log(res.data)
+    return res.data;
+    
+  }
+});
+
 
 const expectedTotalUser = 1000; 
 const currentTotalUser = userStats.totalUser || 0;
@@ -53,7 +64,7 @@ const stats = [
     id: 3,
     icon: <MdCreditCard className="text-green-600 text-2xl" />,
     bgColor: "bg-green-100",
-    value: "$2,856",
+    value:`$${earningsStats.totalEarnings || 0}`,
     label: "Total Earning",
     growth: "24%",
   },

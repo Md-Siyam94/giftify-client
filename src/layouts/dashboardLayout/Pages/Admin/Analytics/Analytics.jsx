@@ -1,3 +1,9 @@
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+import { useEffect, useState } from "react";
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
 import {
     BarChart,
     Bar,
@@ -13,6 +19,7 @@ import {
     Area,
     AreaChart
 } from "recharts";
+import useAxiosPublic from "../../../../../hooks/useAxiosPublic";
 
 const barData = [
     { name: "Lorem", uv: 400 },
@@ -56,11 +63,36 @@ const data = [
 ];
 
 const Analytics = () => {
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    const [monthlyUsers, setMonthlyUsers] = useState([]);
+    const axiosPublic=useAxiosPublic();
+    useEffect(() => {
+        axiosPublic.get("/giftify/users/monthly-users")
+            .then(res => setMonthlyUsers(res.data))
+            .catch(err => console.error(err));
+    }, []);
+      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
     return (
         <>
             <div className=" p-6 bg-gray-100 min-h-screen">
                 <h4 className="text-xl font-semibold py-4">Analytics</h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+                    <div>
+                    <h2 className="text-2xl font-bold mb-4 text-gray-700">📈 Monthly New Users</h2>
+            <div className="bg-white p-6 rounded-xl shadow-md">
+                <ResponsiveContainer width="100%" height={300}>
+                    <BarChart data={monthlyUsers}>
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip />
+                        <Bar dataKey="users" fill="#7c3aed" radius={[6, 6, 0, 0]} />
+                    </BarChart>
+                </ResponsiveContainer>
+            </div>
+                    </div>
+                    {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                     <div className="rounded-xl shadow-md p-4 bg-white ">
                         <div className="text-3xl font-bold text-cyan-500">+5320 <small>Viewer</small></div>
                         <div className="text-purple-500 font-semibold mb-2">MONTH 1</div>
