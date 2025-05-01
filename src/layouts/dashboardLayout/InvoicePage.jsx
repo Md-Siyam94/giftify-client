@@ -63,7 +63,7 @@ const InvoicePage = () => {
                                 <p className="text-sm text-gray-600">
                                     Transaction Date: {new Date(payment.date).toLocaleString()}
                                 </p>
-                                <p className="text-sm text-gray-600">Total Price: ${payment.price}</p>
+                                <p className="text-sm text-gray-600">Total Price: ${payment.price.toFixed(2)}</p>
                                 <p className="text-sm text-gray-600">
                                     Payment Received successfully
                                 </p>

@@ -3,7 +3,6 @@
 @tailwind utilities;
 
 
-
 /* for invoice pdf printing only */
 /* ───────────────────────────────────────────────────────────────────── */
 /* Only show the invoice div when printing, hide everything else */
@@ -42,8 +41,6 @@
 }
 
 /* ───────────────────────────────────────────────────────────────────── */
-
-
 
 
 .btn-p {
