@@ -7,7 +7,7 @@ import FaqSection from '../../../../components/LoadingSpinner/FaqSection/FaqSect
 import Testimonials from './Testimonials';
 const Home = () => {
     return (
-        <div className='space-y-5 lg:space-y-16 lg:mb-16'>
+        <div className='space-y-5 lg:space-y-16 lg:mb-4'>
             <section>
                 <Hero></Hero>
             </section>
@@ -18,16 +18,22 @@ const Home = () => {
             <section id="trending" className='max-w-screen-xl mx-auto'>
                 <TrendingGifts></TrendingGifts>
             </section>
+
+
             {/* Testimonials Section */}
-            <section className='max-w-screen-xl mx-auto'>
+            {/* <section className='max-w-screen-xl mx-auto'>
                 <Testimonials></Testimonials>
-            </section>
+            </section> */}
+
+
             {/* Why choose Us section */}
             <section className='max-w-screen-xl mx-auto'>
                 <WhyChooseUs></WhyChooseUs>
             </section>
             {/* Faq Section */}
-            <FaqSection></FaqSection>
+            <section className='max-w-screen-xl mx-auto'>
+                <FaqSection></FaqSection>
+            </section>
         </div>
     );
 };

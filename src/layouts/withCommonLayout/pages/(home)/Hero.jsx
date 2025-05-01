@@ -34,10 +34,10 @@ const Hero = () => {
       <div className="text-center">
         <div className="max-w-screen-2xl mx-auto px-4">                       {/* New: padding & centering */}
           <div className=" lg:-mt-32 space-y-3 text-4xl md:text-5xl lg:text-7xl font-bold text-gray-100">
-            Send Gifts to Loved One With&nbsp;
+            Send Gifts to Loved Ones With&nbsp;
             <br />
 
-            <AnimatePresence mode="wait">                                  {/* Modified: use mode="wait" for smoother sequencing */}
+            <AnimatePresence mode="wait">               {/* Modified: use mode="wait" for smoother sequencing */}
               <motion.span
                 key={words[index]}                                          // New: re-mount on each word change
                 variants={variants}                                         // New: attach your variants object

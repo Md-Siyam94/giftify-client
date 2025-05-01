@@ -67,7 +67,7 @@ const Navbar = () => {
         </NavLink>
       </li>
 
-      <li>
+      {/* <li>
         <NavLink
           to="/make-gift"
           className={({ isActive }) =>
@@ -78,7 +78,9 @@ const Navbar = () => {
             <h5>Make Gift</h5>
           </div>
         </NavLink>
-      </li>
+      </li> */}
+
+
       <li>
         <NavLink
           to="/gift_gallery"

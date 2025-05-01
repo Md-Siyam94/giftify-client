@@ -5,15 +5,15 @@ const FaqSection = () => {
   const title = "Frequently Asked Questions ?";
 
   return (
-    <section className="max-w-6xl mx-auto px-4 py-16">
+    <section className="py-10 md:py-14 lg:py-24 mx-3">
       {/* Animated Title */}
       <motion.h2
-        className="md:text-3xl text-2xl font-semibold text-center mb-6 flex flex-wrap justify-center"
+        className="md:text-3xl text-xl font-semibold text-center mb-6 flex flex-wrap justify-center"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: false, amount: 0.5 }}
         variants={{
-          visible: { transition: { staggerChildren: 0.04 } }, 
+          visible: { transition: { staggerChildren: 0.04 } },
         }}
       >
         {title.split("").map((char, index) => (
@@ -29,13 +29,13 @@ const FaqSection = () => {
               damping: 20,
             }}
           >
-            {char === " " ? "\u00A0" : char} 
-          </motion.span> 
-        ))} 
+            {char === " " ? "\u00A0" : char}
+          </motion.span>
+        ))}
       </motion.h2>
 
       {/* FAQ Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center"> {/* New: lg breakpoint instead of md */}
         {/* FAQ Accordion */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
@@ -93,7 +93,7 @@ const FaqSection = () => {
 
         {/* FAQ Image Section */}
         <motion.div
-          initial={{ opacity: 0, x: 100 }}
+          initial={{ opacity: 0, x: 5 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           viewport={{ once: false, amount: 0.5 }}
@@ -102,7 +102,7 @@ const FaqSection = () => {
           <img
             src="https://i.ibb.co/nsLd3731/FAQs-amico.png"
             alt="FAQ Illustration"
-            className="w-[280px] h-[240px] md:w-[320px] md:h-[280px]"
+            className="w-[200px] sm:w-[280px] md:w-[320px] h-auto" // New: h-auto & responsive width
           />
         </motion.div>
       </div>
