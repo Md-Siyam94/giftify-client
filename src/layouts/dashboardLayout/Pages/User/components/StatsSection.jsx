@@ -51,7 +51,7 @@ const stats = [
     bgColor: "bg-blue-100",
     value:userStats?.totalUser || 0 ,
     label: "Total User",
-    growth: `${userPercentage} %`,
+    growth: `$${(userPercentage || 0).toFixed(3)}`,
   },{
     id: 2,
     icon: <FiGift className="text-purple-600 text-2xl" />,
@@ -64,7 +64,7 @@ const stats = [
     id: 3,
     icon: <MdCreditCard className="text-green-600 text-2xl" />,
     bgColor: "bg-green-100",
-    value:`$${earningsStats.totalEarnings || 0}`,
+    value:`$${(earningsStats.totalEarnings || 0).toFixed(3)}`,
     label: "Total Earning",
     growth: "24%",
   },

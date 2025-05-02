@@ -253,11 +253,11 @@ const Profile = () => {
                 </p> */}
                 <div className="grid grid-cols-3 gap-6 mt-8">
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-purple-600">248</div>
+                    <div className="text-2xl font-bold text-purple-600">12</div>
                     <div className="text-sm text-gray-600">Gifts Sent</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-purple-600">1,423</div>
+                    <div className="text-2xl font-bold text-purple-600">16</div>
                     <div className="text-sm text-gray-600">Recipients</div>
                   </div>
                   <div className="text-center">

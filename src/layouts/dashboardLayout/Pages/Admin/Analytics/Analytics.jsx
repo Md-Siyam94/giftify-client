@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
 import {
     BarChart,
     Bar,
@@ -16,10 +15,12 @@ import {
     PieChart,
     Pie,
     Cell,
+    Legend ,
     Area,
-    AreaChart
+    AreaChart,
 } from "recharts";
 import useAxiosPublic from "../../../../../hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
 
 const barData = [
     { name: "Lorem", uv: 400 },
@@ -65,13 +66,45 @@ const data = [
 const Analytics = () => {
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     const [monthlyUsers, setMonthlyUsers] = useState([]);
-    const axiosPublic=useAxiosPublic();
+    const [pieData, setPieData] = useState([]);
+    const axiosPublic = useAxiosPublic();
+    // Fetch monthly User Registration data
     useEffect(() => {
         axiosPublic.get("/giftify/users/monthly-users")
             .then(res => setMonthlyUsers(res.data))
             .catch(err => console.error(err));
     }, []);
-      // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Fetch Monthly Earning data
+    const { data: monthlyEarnings = [] } = useQuery({
+        queryKey: ['monthly-earnings'],
+        queryFn: async () => {
+            const res = await axiosPublic.get('/giftify/payments/monthly-earnings');
+            return res.data;
+        }
+    });
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+    const formattedData = monthlyEarnings.map(item => ({
+        name: monthNames[item.month - 1],
+        value: parseFloat(item.total.toFixed(2))
+    }));
+    // Fetch purchasing user data for pie
+    useEffect(() => {
+        axiosPublic.get("/giftify/users/purchase-stats")
+            .then(res => {
+                const { purchased, notPurchased } = res.data;
+                const piechartData = [
+                    { name: "Purchased", value: purchased },
+                    { name: "Not Purchased", value: notPurchased },
+                ];
+                console.log(res.data)
+                setPieData(piechartData);
+            })
+            .catch(err => console.error(err));
+    }, []);
+
 
     return (
         <>
@@ -80,35 +113,34 @@ const Analytics = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                     {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                     <div>
-                    <h2 className="text-2xl font-bold mb-4 text-gray-700">📈 Monthly New Users</h2>
-            <div className="bg-white p-6 rounded-xl shadow-md">
-                <ResponsiveContainer width="100%" height={300}>
-                    <BarChart data={monthlyUsers}>
-                        <XAxis dataKey="name" />
-                        <YAxis />
-                        <Tooltip />
-                        <Bar dataKey="users" fill="#7c3aed" radius={[6, 6, 0, 0]} />
-                    </BarChart>
-                </ResponsiveContainer>
-            </div>
+                        <div className="bg-white p-6 rounded-xl shadow-md">
+                            <h4 className="text-3xl font-bold text-p"><small>User Registration</small></h4>
+                            <ResponsiveContainer width="100%" height={300}>
+                                <BarChart data={monthlyUsers}>
+                                    <XAxis dataKey="name" />
+                                    <YAxis />
+                                    <Tooltip />
+                                    <Bar dataKey="users" fill="#7c3aed" radius={[6, 10, 0, 0]} />
+                                </BarChart>
+                            </ResponsiveContainer>
+                        </div>
                     </div>
                     {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
                     <div className="rounded-xl shadow-md p-4 bg-white ">
-                        <div className="text-3xl font-bold text-cyan-500">+5320 <small>Viewer</small></div>
-                        <div className="text-purple-500 font-semibold mb-2">MONTH 1</div>
-                        <ResponsiveContainer width="100%" height={150}>
-                            <AreaChart data={data}>
+                        <h4 className="text-3xl font-bold text-p"><small>Earnings</small></h4>
+                        <ResponsiveContainer width="100%" height={300}>
+                            <AreaChart data={formattedData}>
                                 <defs>
                                     <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
                                         <stop offset="5%" stopColor="#a78bfa" stopOpacity={0.4} />
                                         <stop offset="95%" stopColor="#a78bfa" stopOpacity={0} />
                                     </linearGradient>
                                 </defs>
-                                <XAxis dataKey="name" hide />
-                                <YAxis hide />
+                                <XAxis dataKey="name" />
+                                <YAxis />
                                 <Tooltip />
                                 <Area
-                                    type="monotone"
+                                    type="step" //"step","basis","linear"
                                     dataKey="value"
                                     stroke="#8b5cf6"
                                     fillOpacity={1}
@@ -118,6 +150,31 @@ const Analytics = () => {
                             </AreaChart>
                         </ResponsiveContainer>
                     </div>
+                    {/* Pie Charts */}
+                    <div className="bg-white p-4 rounded-2xl shadow flex flex-col items-center">
+                        <h2 className="text-xl font-semibold mb-4">User Purchase Data</h2>
+                        <PieChart width={220} height={220}>
+                            <Pie
+                                data={pieData}
+                                cx="50%"
+                                cy="50%"
+                                innerRadius={50}
+                                outerRadius={70}
+                                fill="bg-s"
+                                paddingAngle={2}
+                                dataKey="value"
+                                label
+                            >
+                                {pieData.map((entry, index) => (
+                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                ))}
+                            </Pie>
+                            <Tooltip />
+                            <Legend />
+                        </PieChart>
+                    </div>
+
+
                     {/* Bar Chart */}
                     <div className="bg-white p-4 rounded-2xl shadow">
                         <h2 className="text-xl font-semibold mb-4">Bar Chart</h2>
@@ -164,27 +221,6 @@ const Analytics = () => {
                         ))}
                     </div>
 
-                    {/* Pie Charts */}
-                    <div className="bg-white p-4 rounded-2xl shadow flex flex-col items-center">
-                        <h2 className="text-xl font-semibold mb-4">Usage</h2>
-                        <PieChart width={200} height={200}>
-                            <Pie
-                                data={pieData}
-                                cx="50%"
-                                cy="50%"
-                                innerRadius={50}
-                                outerRadius={70}
-                                fill="#8884d8"
-                                paddingAngle={5}
-                                dataKey="value"
-                            >
-                                {pieData.map((entry, index) => (
-                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                ))}
-                            </Pie>
-                        </PieChart>
-                    </div>
-
                     {/* Calendar */}
                     <div className="bg-white p-4 rounded-2xl shadow">
                         <h2 className="text-xl font-semibold mb-4">Calendar</h2>
@@ -198,8 +234,8 @@ const Analytics = () => {
                                 <div
                                     key={date}
                                     className={`p-2 rounded-full m-1 ${[6, 9, 24].includes(date)
-                                            ? "bg-pink-500 text-white"
-                                            : "hover:bg-pink-100"
+                                        ? "bg-pink-500 text-white"
+                                        : "hover:bg-pink-100"
                                         }`}
                                 >
                                     {date}
