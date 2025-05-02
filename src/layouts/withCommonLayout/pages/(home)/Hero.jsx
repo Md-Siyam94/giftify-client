@@ -75,7 +75,7 @@ hover:shadow-white
               {/* <Link to="#trending">
               Hot Deals
             </Link> */}
-              Hot Deals
+              HOT DEALS
             </button>
 
           </a>
