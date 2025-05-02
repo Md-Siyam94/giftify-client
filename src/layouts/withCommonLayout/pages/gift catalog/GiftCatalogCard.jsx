@@ -184,7 +184,7 @@ const GiftCatalogCard = ({ gift }) => {
                     <img
                         src={gift.image}
                         alt={gift.title}
-                        className="w-full h-36 object-cover cursor-pointer rounded-t-lg"
+                        className="w-full h-36 object-contain cursor-pointer rounded-t-lg"
                         onClick={() => handleViewDetails(gift)}
                     />
                 </figure>
