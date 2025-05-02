@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { MdSupportAgent } from "react-icons/md";
+import { toast } from "react-toastify";
 
 const Support = () => {
   const [formData, setFormData] = useState({
@@ -17,7 +18,7 @@ const Support = () => {
     e.preventDefault();
     console.log("Support request submitted:", formData);
     // ✅ TODO: integrate EmailJS or Axios POST to backend
-    alert("Your message has been sent! We'll get back soon.");
+    toast("Your message has been sent! We'll get back soon.");
     setFormData({ subject: "", message: "", name: "", email: "" });
   };
 

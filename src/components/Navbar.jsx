@@ -164,7 +164,7 @@ const Navbar = () => {
           </div>
         </NavLink>
       </li>
-      {userInformation.role == 'admin' && (
+      {userInformation?.role =='admin' && (
         <li>
           <NavLink
             to="/dashboard/admin_dashboard"
@@ -176,7 +176,7 @@ const Navbar = () => {
           </NavLink>
         </li>
       )}
-      {userInformation.role == 'user' && (
+      {userInformation?.role =='user' && (
         <li>
           <NavLink
             to="/dashboard/user_dashboard"
