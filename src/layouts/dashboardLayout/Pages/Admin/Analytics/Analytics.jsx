@@ -15,7 +15,7 @@ import {
     PieChart,
     Pie,
     Cell,
-    Legend ,
+    Legend,
     Area,
     AreaChart,
 } from "recharts";
@@ -176,7 +176,7 @@ const Analytics = () => {
 
 
                     {/* Bar Chart */}
-                    <div className="bg-white p-4 rounded-2xl shadow">
+                    {/* <div className="bg-white p-4 rounded-2xl shadow">
                         <h2 className="text-xl font-semibold mb-4">Bar Chart</h2>
                         <ResponsiveContainer width="100%" height={250}>
                             <BarChart data={barData}>
@@ -186,10 +186,10 @@ const Analytics = () => {
                                 <Bar dataKey="uv" fill="#FF007F" />
                             </BarChart>
                         </ResponsiveContainer>
-                    </div>
+                    </div> */}
 
                     {/* Line Chart */}
-                    <div className="bg-white p-4 rounded-2xl shadow col-span-1 md:col-span-2">
+                    {/* <div className="bg-white p-4 rounded-2xl shadow col-span-1 md:col-span-2">
                         <h2 className="text-xl font-semibold mb-4">Line Chart</h2>
                         <ResponsiveContainer width="100%" height={250}>
                             <LineChart data={lineData}>
@@ -200,10 +200,10 @@ const Analytics = () => {
                                 <Line type="monotone" dataKey="pv" stroke="#FFD700" strokeWidth={2} />
                             </LineChart>
                         </ResponsiveContainer>
-                    </div>
+                    </div> */}
 
                     {/* Progress Bars */}
-                    <div className="bg-white p-4 rounded-2xl shadow">
+                    {/* <div className="bg-white p-4 rounded-2xl shadow">
                         <h2 className="text-xl font-semibold mb-4">Progress</h2>
                         {progressData.map((item, index) => (
                             <div key={index} className="mb-4">
@@ -219,10 +219,10 @@ const Analytics = () => {
                                 </div>
                             </div>
                         ))}
-                    </div>
+                    </div> */}
 
                     {/* Calendar */}
-                    <div className="bg-white p-4 rounded-2xl shadow">
+                    {/* <div className="bg-white p-4 rounded-2xl shadow">
                         <h2 className="text-xl font-semibold mb-4">Calendar</h2>
                         <div className="grid grid-cols-7 text-center text-sm">
                             {["S", "M", "T", "W", "T", "F", "S"].map((day, idx) => (
@@ -242,7 +242,7 @@ const Analytics = () => {
                                 </div>
                             ))}
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </>
