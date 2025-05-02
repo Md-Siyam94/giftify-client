@@ -161,7 +161,7 @@ const TrendingGifts = () => {
               />
               <div className="p-4">
                 <h3 className="text-lg font-semibold">{gift.title}</h3>
-                <p className="text-gray-600 text-sm">{gift.description}</p>
+                {/* <p className="text-gray-600 text-sm">{gift.description}</p> */}
                 <div className="mt-2 flex justify-between items-center">
                   <span className="text-lg font-bold text-purple-600">
                     ${gift.price}
