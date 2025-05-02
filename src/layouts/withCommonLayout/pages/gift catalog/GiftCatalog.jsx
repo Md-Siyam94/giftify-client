@@ -104,10 +104,11 @@ const GiftCatalog = () => {
                 </div>
 
                 {/* Sort Filter */}
-                <div className="flex justify-center items-center gap-6">
-                    <button className="btn" disabled onClick={() => setSortOrder(sortOrder)}>
+                <div className="flex justify-center items-center gap-2">
+                    {/* <button className="btn" disabled onClick={() => setSortOrder(sortOrder)}>
                         Apply Filters
-                    </button>
+                    </button> */}
+                    <h4 className="text-sm text-neutral w-1/2">Apply Filters</h4>
                     <select
                         className="select select-bordered text-lg"
                         value={sortOrder}

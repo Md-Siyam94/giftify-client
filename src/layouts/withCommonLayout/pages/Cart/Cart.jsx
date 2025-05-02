@@ -159,8 +159,8 @@ const Cart = () => {
             text: "This item will be removed from your cart!",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
+            confirmButtonColor: "#ff3e3e",
+            cancelButtonColor: "",
             confirmButtonText: "Yes, remove it!",
         }).then(async (result) => {
             if (result.isConfirmed) {
@@ -178,30 +178,30 @@ const Cart = () => {
         });
     };
 
-    const handleClearCart = async () => {
-        Swal.fire({
-            title: "Are you sure?",
-            text: "This will remove all gifts from your cart!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, clear all!",
-        }).then(async (result) => {
-            if (result.isConfirmed) {
-                try {
-                    const res = await axiosPublic.delete(`/giftify/carts/clear/${user.email}`);
-                    if (res.data.deletedCount > 0) {
-                        refetch();
-                        Swal.fire("Cleared!", "All your gifts have been removed.", "success");
-                    }
-                } catch (error) {
-                    console.error("Failed to clear cart:", error);
-                    Swal.fire("Error", "Something went wrong while clearing the cart.", "error");
-                }
-            }
-        });
-    };
+    // const handleClearCart = async () => {
+    //     Swal.fire({
+    //         title: "Are you sure?",
+    //         text: "This will remove all gifts from your cart!",
+    //         icon: "warning",
+    //         showCancelButton: true,
+    //         confirmButtonColor: "#3085d6",
+    //         cancelButtonColor: "#d33",
+    //         confirmButtonText: "Yes, clear all!",
+    //     }).then(async (result) => {
+    //         if (result.isConfirmed) {
+    //             try {
+    //                 const res = await axiosPublic.delete(`/giftify/carts/clear/${user.email}`);
+    //                 if (res.data.deletedCount > 0) {
+    //                     refetch();
+    //                     Swal.fire("Cleared!", "All your gifts have been removed.", "success");
+    //                 }
+    //             } catch (error) {
+    //                 console.error("Failed to clear cart:", error);
+    //                 Swal.fire("Error", "Something went wrong while clearing the cart.", "error");
+    //             }
+    //         }
+    //     });
+    // };
 
 
 
@@ -210,41 +210,35 @@ const Cart = () => {
     const hasExistingMessage = Boolean(currentItem?.message);
 
     return (
-        <div className="mb-40">
+        <div className="mb-40 px-2 md:px-3 lg:px-8">
             <div className="px-6 pt-4 max-w-screen-xl mx-auto">
-                <div className="flex justify-evenly mb-6 pt-8 pb-5 items-center">
-                    <h2 className="text-4xl">Ordered Gift: {cart.length}</h2>
-                    <h2 className="text-4xl">Total Price: ${totalPrice.toFixed(2)}</h2>
+
+                <div className="flex flex-col sm:flex-row justify-between items-center pt-6 pb-1 space-y-4 sm:space-y-0 sm:space-x-4">
+                    <h2 className="text-xl md:text-2xl lg:text-4xl">Ordered Gift: {cart.length}</h2>
+                    <h2 className="text-xl md:text-2xl lg:text-4xl">Total Price: ${totalPrice.toFixed(2)}</h2>
 
                     {cart.length ? (
                         <Link to="/dashboard/payment">
-                            <button className="btn bg-[#9333EA] hover:bg-[#7A22D1] text-white">Buy Now</button>
+                            <button className="btn bg-[#731bc5] text-white border-0 w-full sm:w-auto transition duration-100 ease-in-out transform hover:scale-105 hover:shadow-2xl hover:shadow-white hover:bg-[#470c7e] hover:text-white">
+                                PROCEED TO PURCHASE
+                            </button>
                         </Link>
                     ) : (
-                        <button disabled className="btn">Buy Now</button>
+                        <button disabled className="btn w-full sm:w-auto">
+                            PROCEED TO PURCHASE
+                        </button>
                     )}
                 </div>
 
-                <div className="mb-8 ml-24">
-                    <button
-                        className={`btn ${cart.length ? 'btn-neutral' : ''}`}
-                        onClick={handleClearCart}
-                        disabled={!cart.length}
-                    >
-                        Clear Cart
-                    </button>
-                </div>
-
                 {cart.length === 0 ? (
-                    <div>
-                        <h2 className="text-2xl bg-base-300 w-1/3 mx-auto text-gray-600 px-2.5 py-2 font-semibold text-center">
+                    <div className="mt-4 md:mt-6 lg:mt-8">
+                        <h2 className="text-lg lg:text-2xl bg-base-300 w-full sm:w-1/3 mx-auto text-gray-600 px-2.5 py-2 font-semibold text-center">
                             No Gifts in Your Cart Yet!
                         </h2>
                     </div>
                 ) : (
-                    <div className="overflow-x-auto">
-
-                        <table className="table">
+                    <div className="overflow-x-auto mt-2.5">
+                        <table className="table min-w-full">
                             <thead>
                                 <tr className="bg-3 text-white">
                                     <th>No.</th>
@@ -257,10 +251,7 @@ const Cart = () => {
                             </thead>
                             <tbody>
                                 {cart.map((item, index) => (
-                                    <tr
-                                        key={item._id}
-                                        className="even:bg-gray-100/60 hover:bg-purple-300/10"
-                                    >
+                                    <tr key={item._id} className="even:bg-gray-100/60 hover:bg-purple-300/10">
                                         <th>{index + 1}</th>
                                         <td>
                                             <div className="flex items-center gap-3">
@@ -278,9 +269,7 @@ const Cart = () => {
                                         <td className="flex items-center space-x-1 -ml-4">
                                             <div className="tooltip" data-tip="decrease">
                                                 <button
-                                                    onClick={() =>
-                                                        handleQuantityChange(item._id, item.quantity - 1)
-                                                    }
+                                                    onClick={() => handleQuantityChange(item._id, item.quantity - 1)}
                                                     disabled={item.quantity <= 1}
                                                     className="btn btn-sm text-base border-gray-300"
                                                 >
@@ -290,9 +279,7 @@ const Cart = () => {
                                             <span className="w-6 text-center">{item.quantity}</span>
                                             <div className="tooltip" data-tip="increase">
                                                 <button
-                                                    onClick={() =>
-                                                        handleQuantityChange(item._id, item.quantity + 1)
-                                                    }
+                                                    onClick={() => handleQuantityChange(item._id, item.quantity + 1)}
                                                     className="btn btn-sm text-base border-gray-300"
                                                 >
                                                     +
@@ -302,17 +289,11 @@ const Cart = () => {
                                         <td>${(item.price * item.quantity).toFixed(2)}</td>
                                         <td className="py-3 px-4">
                                             <div className="tooltip" data-tip="Set Message">
-
-
                                                 <button
                                                     className="mr-5 mt-2 text-xl text-emerald-950"
                                                     onClick={() => openModal(item._id)}
                                                 >
-
-
-                                                    <div
-                                                        className="text-xl text-emerald-950 mr-2"
-                                                    >
+                                                    <div className="text-xl text-emerald-950 mr-2">
                                                         <LuMessageSquareText />
                                                     </div>
                                                 </button>
@@ -330,14 +311,9 @@ const Cart = () => {
                                 ))}
                             </tbody>
                         </table>
-
                     </div>
                 )}
-            </div>
 
-            {/* new code below */}
-            {/* Modal */}
-            <div>
                 {isModalOpen && (
                     <div
                         role="dialog"
@@ -375,8 +351,7 @@ const Cart = () => {
                                         type="text"
                                         placeholder="e.g. Elon Musk"
                                         {...register('name', { required: 'Receiver Name is required' })}
-                                        className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm
-                       focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                                        className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
                                     />
                                     {errors.name && (
                                         <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
@@ -393,8 +368,7 @@ const Cart = () => {
                                         rows={4}
                                         placeholder="Your message…"
                                         {...register('message', { required: 'Message is required' })}
-                                        className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm
-                       focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
+                                        className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
                                     />
                                     {errors.message && (
                                         <p className="mt-1 text-sm text-red-600">{errors.message.message}</p>
@@ -406,18 +380,12 @@ const Cart = () => {
                                     <button
                                         type="button"
                                         onClick={() => setIsModalOpen(false)}
-                                        className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md
-                       hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
+                                        className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
                                     >
                                         Cancel
                                     </button>
-                                    <button
-                                        type="submit"
-                                        className="btn bg-[#9333EA] hover:bg-[#7A22D1] text-white"
-                                    >
-                                        {cart.find(c => c._id === currentItemId)?.message
-                                            ? 'Reset Message'
-                                            : 'Add Message'}
+                                    <button type="submit" className="btn bg-[#9333EA] hover:bg-[#7A22D1] text-white">
+                                        {cart.find(c => c._id === currentItemId)?.message ? 'Reset Message' : 'Add Message'}
                                     </button>
                                 </div>
                             </form>
@@ -426,10 +394,9 @@ const Cart = () => {
                 )}
 
             </div>
-            {/* new code above */}
-
         </div>
     );
+
 };
 
 export default Cart;
