@@ -193,7 +193,7 @@ const GiftCatalogCard = ({ gift }) => {
 
                     <div className="flex justify-start gap-5 items-center mt-2">
                         <span className="text-base font-semibold text-black">
-                            $ {gift.price}
+                            ${gift.price}
                         </span>
                         <span className="flex items-center gap-0.5 text-sm">
                             {[...Array(5)].map((_, idx) => (

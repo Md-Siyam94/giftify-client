@@ -110,6 +110,7 @@ const CheckoutForm = () => {
                         icon: "success",
                         title: "Payment Successful",
                         showConfirmButton: true,
+                        confirmButtonColor: "#9333EA",
                         confirmButtonText: "View Invoice"
                     })
                         .then((result) => {

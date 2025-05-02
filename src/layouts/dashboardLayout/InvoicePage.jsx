@@ -28,15 +28,15 @@ const InvoicePage = () => {
     return (
         <>
             <div className="flex flex-col items-center justify-center min-h-screen bg-base-200 px-4 pt-4 pb-20">
-                <h2 className="text-4xl font-bold my-3">Invoice</h2>
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold my-3">Invoice</h2>
 
                 {/* This is the only section that will actually be printed */}
                 <div id="invoice" className="w-full max-w-3xl bg-white shadow-xl rounded-lg p-8">
                     {payments.map((payment) => (
                         <div key={payment._id}>
-                            <div className="flex justify-between items-center border-b pb-4 mb-6">
+                            <div className="flex flex-col md:flex-row justify-between items-center border-b pb-4 mb-6">
                                 <img src={logo} alt="Website Logo" className="h-16" />
-                                <div className="text-right">
+                                <div className="text-center">
                                     <p className="text-sm text-gray-900">
                                         Transaction ID: {payment.transactionId}
                                     </p>
@@ -44,7 +44,7 @@ const InvoicePage = () => {
                             </div>
 
                             {/* User Information */}
-                            <div className="mb-6 flex items-center space-x-4">
+                            <div className="mb-6 flex flex-col md:flex-row items-center space-x-4">
                                 <img
                                     src={user.photoURL}
                                     alt={`${user.displayName}'s photo`}

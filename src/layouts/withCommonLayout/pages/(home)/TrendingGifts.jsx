@@ -136,7 +136,7 @@ const TrendingGifts = () => {
   return (
     <>
       <div className="mx-3">
-        <h2 className="md:text-3xl text-2xl font-semibold text-center mb-6">Trending Gifts</h2>
+        <h2 className="md:text-3xl lg:text-4xl text-2xl font-semibold text-center mb-6">Trending Gifts</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 lg:gap-10">
           {featuredGifts.map((gift) => (
             <motion.div

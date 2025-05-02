@@ -16,7 +16,7 @@ const PropularCetegory = () => {
 
     return (
         <div className='py-8 md:py-12 lg:py-16'>
-            <h2 className='md:text-3xl text-2xl font-semibold text-center'>Popular Categories</h2>
+            <h2 className='md:text-3xl lg:text-4xl text-2xl font-semibold text-center'>Popular Categories</h2>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6 items-stretch'>
                 {
                     popularCetegory.map((category, index) => (
