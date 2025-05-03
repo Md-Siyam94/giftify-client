@@ -33,7 +33,7 @@ const SignIn = () => {
 
                 // Now it's a Firebase login error, so checking with server
                 try {
-                    const res = await fetch('http://localhost:5000/auth/track-failed-login', {
+                    const res = await fetch('https://v1-coffee-store-server-swart.vercel.app/auth/track-failed-login', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ email: data.email })
