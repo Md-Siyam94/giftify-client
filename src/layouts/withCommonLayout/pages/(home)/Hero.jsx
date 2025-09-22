@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from "react-router-dom";
 
 
+
 const Hero = () => {
   const words = ['Affection', 'Passion', 'Gratitude', 'Admiration', 'Care'];  // New: array of words to cycle through
   const [index, setIndex] = useState(0);                              // New: state to track current word
@@ -72,15 +73,10 @@ hover:shadow-white
             hover:text-white                   
           "
             >
-              {/* <Link to="#trending">
-              Hot Deals
-            </Link> */}
               HOT DEALS
             </button>
 
           </a>
-
-
         </div>
       </div>
     </div>
