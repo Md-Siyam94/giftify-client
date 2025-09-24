@@ -145,7 +145,7 @@ const SignUp = () => {
                                     className="select select-bordered w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 >
                                     <option value="user">User</option>
-                                    <option value="seller">Seller</option>
+                                    {/* <option value="seller">Seller</option> */}
                                 </select>
                                 {errors.role && <span className="text-red-600">{errors.role.message}</span>}
                             </div>

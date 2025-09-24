@@ -27,6 +27,18 @@ const Payment = () => {
                     <Elements stripe={stripePromise}>
                         <CheckoutForm />
                     </Elements>
+
+                    {/* Right-aligned link under the payment input box */}
+                    <div className="mt-2 pr-16 flex justify-end">
+                        <a
+                            href="https://docs.stripe.com/testing"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm md:text-base lg:text-lg underline text-gray-500 hover:text-gray-700"
+                        >
+                            Demo Test Card Numbers
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
