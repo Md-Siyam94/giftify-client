@@ -1,11 +1,13 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { FaCartPlus, FaEye } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import useAxiosPublic from '../../../../hooks/useAxiosPublic';
 import AuthContext from '../../../../context/AuthContext/AuthContext';
 import useCart from '../../../../hooks/useCart';
+import { motion } from 'framer-motion';
 
 const GiftCatalogCard = ({ gift }) => {
+
 
     // console.log(gift.price);
 
@@ -116,9 +118,6 @@ const GiftCatalogCard = ({ gift }) => {
         });
     };
 
-
-
-
     const handleAddToCart = (gift) => {
         const { title, image, price, _id, category, description, rating } = gift;
         if (user && user.email) {
@@ -166,14 +165,20 @@ const GiftCatalogCard = ({ gift }) => {
         }
     };
 
-
-
-
-
     return (
         <div>
-            <div
-                className="card bg-base-100 shadow-lg hover:shadow-xl relative h-full transition-transform duration-150 transform hover:-translate-y-2.5 hover:border-2 hover:border-gray-200/95"
+            <motion.div
+                // motion wrapper -- smooth lift + subtle scale
+                initial={{ y: 0 }}
+                animate={{ y: 0 }}
+                whileHover={{
+                    y: -8,
+                    scale: 1.02,
+                    boxShadow: '0 20px 30px rgba(15, 15, 15, 0.12)'
+                }}
+                transition={{ type: 'spring', stiffness: 300, damping: 24 }}
+                className="card bg-base-100 shadow-lg relative h-full border-2 border-transparent"
+                style={{ willChange: 'transform, box-shadow' }}
             >
                 {gift.featured && (
                     <div className="badge bg-s text-white absolute top-2 left-2">
@@ -230,9 +235,7 @@ const GiftCatalogCard = ({ gift }) => {
                         </div>
                     </div>
                 </div>
-            </div>
-
-
+            </motion.div>
         </div>
     );
 };

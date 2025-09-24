@@ -13,7 +13,7 @@ const MainLayout = () => {
                     </div>
                 </div>
             </header>
-            <main className='min-h-screen'>
+            <main className='min-h-[87vh]'>
                 <Outlet />
             </main>
             {/* Footer */}
