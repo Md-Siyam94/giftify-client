@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 
 const SignIn = () => {
 
-    const { register, handleSubmit, reset, formState: { errors }, getValues } = useForm();
+    const { register, handleSubmit, reset, formState: { errors }, getValues, setValue } = useForm();
 
     const { signInUser, forgotPassword } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -99,6 +99,22 @@ const SignIn = () => {
             });
     };
 
+    // Auto fill default user function
+    const handleAutoFillDefaultUser = () => {
+        setValue("email", "rasel123@gmail.com");
+        setValue("password", "Rasel1234*");
+
+        // Optional: Show a toast notification
+        Swal.fire({
+            position: "top",
+            icon: "info",
+            title: 'Default user credentials filled',
+            showConfirmButton: false,
+            timer: 1500,
+            toast: true
+        });
+    };
+
 
 
     return (
@@ -113,70 +129,85 @@ const SignIn = () => {
                     </div>
 
 
-                    {/* Form */}
-                    <div className="card w-full max-w-lg mx-auto lg:w-96 bg-white shadow-xl rounded-xl px-8 md:py-5">
+                    {/* Form container with auto-login button */}
+                    <div className="relative w-full max-w-lg mx-auto lg:w-96">
 
-                        <form
-                            onSubmit={handleSubmit(onSubmit)}
-                            className="card-body">
-
-                            <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text">Email</span>
-                                </label>
-                                <input type="email"  {...register("email", { required: true })} name="email" placeholder="email" className="input input-bordered" />
-                                {errors.email && <span className="text-red-600">Email is required</span>}
-                            </div>
-
-
-
-                            <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text">Password</span>
-                                </label>
-                                <input type="password"  {...register("password", {
-                                    required: true,
-                                    minLength: 6,
-                                    maxLength: 20,
-                                    pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/
-                                })} placeholder="password" className="input input-bordered" />
-                                {errors.password?.type === 'required' &&
-                                    <p className="text-red-600">Password is required</p>}
-                                {errors.password?.type === 'minLength' && <p className="text-red-600">Password must be 6 characters</p>}
-                                {errors.password?.type === 'maxLength' && <p className="text-red-600">Password must be less than 20 characters</p>}
-                                {errors.password?.type === 'pattern' && <p className="text-red-600">Password must have one Uppercase one lower case, one number and one special character.</p>}
-
-                            </div>
-
-                            {/* forgot password */}
-                            <h5
-                                onClick={handleForgotPassword}
-                                className="text-sm text-gray-700 hover:underline text-center cursor-pointer mt-2 mb-[-8px]"
+                        {/* Auto Login Button - positioned above form */}
+                        <div className="mb-3 text-center">
+                            <button
+                                onClick={handleAutoFillDefaultUser}
+                                className="btn btn-sm bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white border-none shadow-lg tracking-wider lg:tracking-widest"
+                                type="button"
                             >
-                                Forgot password?
-                            </h5>
-
-
-                            <div className="form-control mt-5">
-                                <input className="btn btn-p w-full text-neutral-content" type="submit" value="Log in" />
-                            </div>
-                        </form>
-
-
-
-                        {/* Already have an account? */}
-                        <div className="text-center">
-                            <div className="flex justify-center items-center gap-0.5 md:gap-1.5">
-                                <p className="text-gray-800 text-sm md:text-base">{`Don't have an account?`}</p>
-                                <Link to="/signUp">
-                                    <h4 className="font-medium text-sm md:text-base text-p hover:underline">Sign up</h4>
-                                </Link>
-                            </div>
+                                Auto-fill as default user
+                            </button>
                         </div>
 
-                        {/* Social Login */}
-                        <div className="mt-1.5 mb-4 md:mb-0">
-                            <SocialLogin />
+                        {/* Form Card */}
+                        <div className="card w-full bg-white shadow-xl rounded-xl px-8 md:py-5">
+
+                            <form
+                                onSubmit={handleSubmit(onSubmit)}
+                                className="card-body">
+
+                                <div className="form-control">
+                                    <label className="label">
+                                        <span className="label-text">Email</span>
+                                    </label>
+                                    <input type="email"  {...register("email", { required: true })} name="email" placeholder="email" className="input input-bordered" />
+                                    {errors.email && <span className="text-red-600">Email is required</span>}
+                                </div>
+
+
+
+                                <div className="form-control">
+                                    <label className="label">
+                                        <span className="label-text">Password</span>
+                                    </label>
+                                    <input type="password"  {...register("password", {
+                                        required: true,
+                                        minLength: 6,
+                                        maxLength: 20,
+                                        pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/
+                                    })} placeholder="password" className="input input-bordered" />
+                                    {errors.password?.type === 'required' &&
+                                        <p className="text-red-600">Password is required</p>}
+                                    {errors.password?.type === 'minLength' && <p className="text-red-600">Password must be 6 characters</p>}
+                                    {errors.password?.type === 'maxLength' && <p className="text-red-600">Password must be less than 20 characters</p>}
+                                    {errors.password?.type === 'pattern' && <p className="text-red-600">Password must have one Uppercase one lower case, one number and one special character.</p>}
+
+                                </div>
+
+                                {/* forgot password */}
+                                <h5
+                                    onClick={handleForgotPassword}
+                                    className="text-sm text-gray-700 hover:underline text-center cursor-pointer mt-2 mb-[-8px]"
+                                >
+                                    Forgot password?
+                                </h5>
+
+
+                                <div className="form-control mt-5">
+                                    <input className="btn btn-p w-full text-neutral-content" type="submit" value="Log in" />
+                                </div>
+                            </form>
+
+
+
+                            {/* Already have an account? */}
+                            <div className="text-center">
+                                <div className="flex justify-center items-center gap-0.5 md:gap-1.5">
+                                    <p className="text-gray-800 text-sm md:text-base">{`Don't have an account?`}</p>
+                                    <Link to="/signUp">
+                                        <h4 className="font-medium text-sm md:text-base text-p hover:underline">Sign up</h4>
+                                    </Link>
+                                </div>
+                            </div>
+
+                            {/* Social Login */}
+                            <div className="mt-1.5 mb-4 md:mb-0">
+                                <SocialLogin />
+                            </div>
                         </div>
                     </div>
 
